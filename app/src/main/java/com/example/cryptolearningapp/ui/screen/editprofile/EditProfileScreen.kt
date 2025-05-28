@@ -1,15 +1,20 @@
 package com.example.cryptolearningapp.ui.screen.editprofile
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -18,6 +23,8 @@ import com.example.cryptolearningapp.data.model.Gender
 import com.example.cryptolearningapp.data.model.UserProfile
 import kotlinx.coroutines.launch
 import java.time.Year
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,6 +40,7 @@ fun EditProfileScreen(
     val scope = rememberCoroutineScope()
 
     val currentYear = Year.now().value
+    val years = (1900..currentYear).toList()
 
     Scaffold(
         topBar = {
@@ -64,62 +72,93 @@ fun EditProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text(
-                text = "Cập nhật thông tin cá nhân",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
+            // Avatar
+            Box(
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = null,
+                    modifier = Modifier.size(60.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
 
             // Name field
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
                 label = { Text("Tên") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
 
             // Gender selection
-            Text(
-                text = "Giới tính",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Row(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Gender.values().forEach { gender ->
-                    FilterChip(
-                        selected = selectedGender == gender,
-                        onClick = { selectedGender = gender },
-                        label = {
-                            Text(
-                                when (gender) {
-                                    Gender.MALE -> "Nam"
-                                    Gender.FEMALE -> "Nữ"
-                                    Gender.OTHER -> "Khác"
-                                }
-                            )
-                        }
-                    )
+                Text(
+                    text = "Giới tính",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Gender.values().forEach { gender ->
+                        FilterChip(
+                            selected = selectedGender == gender,
+                            onClick = { selectedGender = gender },
+                            label = {
+                                Text(
+                                    when (gender) {
+                                        Gender.MALE -> "Nam"
+                                        Gender.FEMALE -> "Nữ"
+                                        Gender.OTHER -> "Khác"
+                                    }
+                                )
+                            },
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
                 }
             }
 
             // Birth year field
-            OutlinedTextField(
-                value = birthYear,
-                onValueChange = { birthYear = it },
-                label = { Text("Năm sinh") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth()
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Năm sinh",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Slider(
+                    value = birthYear.toIntOrNull()?.toFloat() ?: currentYear.toFloat(),
+                    onValueChange = { birthYear = it.toInt().toString() },
+                    valueRange = 1900f..currentYear.toFloat(),
+                    steps = (currentYear - 1900) - 1,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = birthYear.ifEmpty { currentYear.toString() },
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
 
             // Error message
             if (showError) {
@@ -146,15 +185,7 @@ fun EditProfileScreen(
                         }
                         birthYear.isBlank() -> {
                             showError = true
-                            errorMessage = "Vui lòng nhập năm sinh"
-                        }
-                        birthYear.toIntOrNull() == null -> {
-                            showError = true
-                            errorMessage = "Năm sinh không hợp lệ"
-                        }
-                        birthYear.toInt() < 1900 || birthYear.toInt() > currentYear -> {
-                            showError = true
-                            errorMessage = "Năm sinh phải từ 1900 đến $currentYear"
+                            errorMessage = "Vui lòng chọn năm sinh"
                         }
                         else -> {
                             showError = false

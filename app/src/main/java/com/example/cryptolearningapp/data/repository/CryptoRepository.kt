@@ -38,4 +38,9 @@ class CryptoRepository @Inject constructor(
         userProgressDao.updateProgress(userId, completedLessons, totalScore)
         _progressUpdateEvent.emit(Unit)
     }
+
+    suspend fun resetUserProgress(userId: String) {
+        userProgressDao.updateProgress(userId, emptyList(), 0)
+        _progressUpdateEvent.emit(Unit)
+    }
 } 
