@@ -32,15 +32,25 @@ fun EditProfileScreen(
     onBackClick: () -> Unit,
     viewModel: EditProfileViewModel = hiltViewModel()
 ) {
-    var name by remember { mutableStateOf("") }
-    var selectedGender by remember { mutableStateOf<Gender?>(null) }
-    var birthYear by remember { mutableStateOf("") }
+    val currentProfile by viewModel.currentProfile.collectAsState()
+    var name by remember { mutableStateOf(currentProfile?.name ?: "") }
+    var selectedGender by remember { mutableStateOf<Gender?>(currentProfile?.gender) }
+    var birthYear by remember { mutableStateOf(currentProfile?.birthYear?.toString() ?: "") }
     var showError by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
 
     val currentYear = Year.now().value
     val years = (1900..currentYear).toList()
+
+    // Update state when currentProfile changes
+    LaunchedEffect(currentProfile) {
+        currentProfile?.let { profile ->
+            name = profile.name
+            selectedGender = profile.gender
+            birthYear = profile.birthYear.toString()
+        }
+    }
 
     Scaffold(
         topBar = {

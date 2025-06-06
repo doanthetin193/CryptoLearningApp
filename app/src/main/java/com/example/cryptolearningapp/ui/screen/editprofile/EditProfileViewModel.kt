@@ -18,6 +18,17 @@ class EditProfileViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    private val _currentProfile = MutableStateFlow<UserProfile?>(null)
+    val currentProfile: StateFlow<UserProfile?> = _currentProfile
+
+    init {
+        viewModelScope.launch {
+            userProfileRepository.userProfile.collect { profile ->
+                _currentProfile.value = profile
+            }
+        }
+    }
+
     suspend fun updateUserProfile(profile: UserProfile) {
         _isLoading.value = true
         try {
