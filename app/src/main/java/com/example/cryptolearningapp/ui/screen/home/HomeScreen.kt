@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -59,6 +60,7 @@ import com.example.cryptolearningapp.data.model.UserProgress
 fun HomeScreen(
     onLessonClick: (Int) -> Unit,
     onProfileClick: () -> Unit,
+    onNewsClick: () -> Unit,
     isDarkMode: Boolean,
     onThemeUpdated: (Boolean) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
@@ -84,6 +86,14 @@ fun HomeScreen(
                             titleContentColor = MaterialTheme.colorScheme.onPrimary
                         ),
                         actions = {
+                            // News button
+                            IconButton(onClick = onNewsClick) {
+                                Icon(
+                                    imageVector = Icons.Default.Article,
+                                    contentDescription = "News",
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
                             // Theme toggle button
                             IconButton(onClick = { onThemeUpdated(!isDarkMode) }) {
                                 Icon(

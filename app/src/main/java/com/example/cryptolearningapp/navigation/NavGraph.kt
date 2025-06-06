@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.cryptolearningapp.ui.news.NewsScreen
 import com.example.cryptolearningapp.ui.screen.home.HomeScreen
 import com.example.cryptolearningapp.ui.screen.lesson.LessonScreen
 import com.example.cryptolearningapp.ui.screen.onboarding.OnboardingScreen
@@ -22,6 +23,7 @@ sealed class Screen(val route: String) {
     }
     object Profile : Screen("profile")
     object EditProfile : Screen("edit_profile")
+    object News : Screen("news")
 }
 
 @Composable
@@ -51,6 +53,9 @@ fun NavGraph(
                 },
                 onProfileClick = {
                     navController.navigate(Screen.Profile.route)
+                },
+                onNewsClick = {
+                    navController.navigate(Screen.News.route)
                 },
                 isDarkMode = isDarkMode,
                 onThemeUpdated = onThemeUpdated
@@ -88,6 +93,10 @@ fun NavGraph(
             EditProfileScreen(
                 onBackClick = { navController.popBackStack() }
             )
+        }
+
+        composable(Screen.News.route) {
+            NewsScreen()
         }
     }
 } 
