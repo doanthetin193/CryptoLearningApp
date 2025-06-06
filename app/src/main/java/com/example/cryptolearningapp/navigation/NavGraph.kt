@@ -25,7 +25,11 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(
+    navController: NavHostController,
+    isDarkMode: Boolean,
+    onThemeUpdated: (Boolean) -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.Onboarding.route
@@ -47,7 +51,9 @@ fun NavGraph(navController: NavHostController) {
                 },
                 onProfileClick = {
                     navController.navigate(Screen.Profile.route)
-                }
+                },
+                isDarkMode = isDarkMode,
+                onThemeUpdated = onThemeUpdated
             )
         }
 
