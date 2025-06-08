@@ -6,6 +6,9 @@ import com.example.cryptolearningapp.data.database.CryptoDatabase
 import com.example.cryptolearningapp.data.dao.UserDao
 import com.example.cryptolearningapp.data.dao.UserProgressDao
 import com.example.cryptolearningapp.data.repository.CryptoRepository
+import com.example.cryptolearningapp.data.api.ApiClient
+import com.example.cryptolearningapp.data.api.GeminiApi
+import com.example.cryptolearningapp.data.repository.ChatRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +47,17 @@ object AppModule {
         userProgressDao: UserProgressDao
     ): CryptoRepository {
         return CryptoRepository(userDao, userProgressDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGeminiApi(): GeminiApi {
+        return ApiClient.api
+    }
+
+    @Provides
+    @Singleton
+    fun provideChatRepository(api: GeminiApi): ChatRepository {
+        return ChatRepository(api)
     }
 } 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,6 +15,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.cryptolearningapp.ui.components.ChatDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,6 +27,7 @@ fun LessonScreen(
 ) {
     val lesson by viewModel.lesson.collectAsState()
     var selectedKeyword by remember { mutableStateOf<String?>(null) }
+    var showChatDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(lessonId) {
         viewModel.loadLesson(lessonId)
@@ -55,13 +58,20 @@ fun LessonScreen(
                     Text("Làm Quiz")
                 }
             }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showChatDialog = true }
+            ) {
+                Icon(Icons.Default.Chat, contentDescription = "Hỏi Gemini")
+            }
         }
-    ) { padding ->
+    ) { paddingValues ->
         lesson?.let { currentLesson ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
+                    .padding(paddingValues)
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState())
             ) {
@@ -104,6 +114,12 @@ fun LessonScreen(
                     Text("Đóng")
                 }
             }
+        )
+    }
+
+    if (showChatDialog) {
+        ChatDialog(
+            onDismiss = { showChatDialog = false }
         )
     }
 } 
