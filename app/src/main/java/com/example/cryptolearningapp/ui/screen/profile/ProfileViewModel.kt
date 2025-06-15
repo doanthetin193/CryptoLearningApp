@@ -17,34 +17,56 @@ class ProfileViewModel @Inject constructor(
     private val cryptoRepository: CryptoRepository
 ) : ViewModel() {
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    // Giả sử userId là "user1" (có thể lấy từ SharedPreferences hoặc UserProfile nếu cần)
     private val userId = "user1"
 
-    val userDataAndProgress: StateFlow<Pair<UserProfile?, UserProgress?>?> = combine(
-        userProfileRepository.userProfile,
-        cryptoRepository.getUserProgress(userId)
-    ) { profile, progress ->
-        if (profile != null) {
-            Pair(profile, progress)
-        } else {
-            null
+    val userProfile: StateFlow<UserProfile?> = userProfileRepository.userProfile
+    val userProgress: StateFlow<UserProgress?> = cryptoRepository.getUserProgress(userId)
+
+    init {
+        loadUserData()
+    }
+
+    private fun loadUserData() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                // Load user profile and progress
+                combine(
+                    userProfile,
+                    userProgress
+                ) { profile, progress ->
+                    // Both flows will emit their values
+                    _isLoading.value = false
+                }.collect()
+            } catch (e: Exception) {
+                _error.value = e.message
+                _isLoading.value = false
+            }
         }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = null
-    )
+    }
+
+    fun updateProgress(completedLessons: List<Int>, totalScore: Int) {
+        viewModelScope.launch {
+            try {
+                cryptoRepository.updateProgress(userId, completedLessons, totalScore)
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
+        }
+    }
 
     fun resetProgress() {
         viewModelScope.launch {
             try {
-                // Reset tiến độ trong database
-                cryptoRepository.updateUserProgress(userId, emptyList(), 0)
+                cryptoRepository.resetProgress(userId)
             } catch (e: Exception) {
-                _error.value = "Không thể reset tiến độ: ${e.message}"
+                _error.value = e.message
             }
         }
     }

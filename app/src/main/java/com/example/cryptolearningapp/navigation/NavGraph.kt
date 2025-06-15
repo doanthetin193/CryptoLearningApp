@@ -29,12 +29,13 @@ sealed class Screen(val route: String) {
 @Composable
 fun NavGraph(
     navController: NavHostController,
+    startDestination: String,
     isDarkMode: Boolean,
     onThemeUpdated: (Boolean) -> Unit
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Onboarding.route
+        startDestination = startDestination
     ) {
         composable(Screen.Onboarding.route) {
             OnboardingScreen(

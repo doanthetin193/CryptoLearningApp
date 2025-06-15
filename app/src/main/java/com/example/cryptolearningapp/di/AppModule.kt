@@ -1,19 +1,17 @@
 package com.example.cryptolearningapp.di
 
 import android.content.Context
-import androidx.room.Room
-import com.example.cryptolearningapp.data.database.CryptoDatabase
-import com.example.cryptolearningapp.data.dao.UserDao
-import com.example.cryptolearningapp.data.dao.UserProgressDao
-import com.example.cryptolearningapp.data.repository.CryptoRepository
-import com.example.cryptolearningapp.data.api.ApiClient
 import com.example.cryptolearningapp.data.api.GeminiApi
+import com.example.cryptolearningapp.data.local.PreferenceManager
 import com.example.cryptolearningapp.data.repository.ChatRepository
+import com.example.cryptolearningapp.data.repository.CryptoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -22,42 +20,35 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCryptoDatabase(
+    fun providePreferenceManager(
         @ApplicationContext context: Context
-    ): CryptoDatabase {
-        return Room.databaseBuilder(
-            context,
-            CryptoDatabase::class.java,
-            "crypto_database"
-        ).build()
+    ): PreferenceManager {
+        return PreferenceManager(context)
     }
 
     @Provides
     @Singleton
-    fun provideUserDao(database: CryptoDatabase) = database.userDao()
-
-    @Provides
-    @Singleton
-    fun provideUserProgressDao(database: CryptoDatabase) = database.userProgressDao()
-
-    @Provides
-    @Singleton
     fun provideCryptoRepository(
-        userDao: UserDao,
-        userProgressDao: UserProgressDao
+        preferenceManager: PreferenceManager
     ): CryptoRepository {
-        return CryptoRepository(userDao, userProgressDao)
+        return CryptoRepository(preferenceManager)
     }
 
     @Provides
     @Singleton
     fun provideGeminiApi(): GeminiApi {
-        return ApiClient.api
+        return Retrofit.Builder()
+            .baseUrl("https://generativelanguage.googleapis.com/v1beta/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GeminiApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideChatRepository(api: GeminiApi): ChatRepository {
+    fun provideChatRepository(
+        api: GeminiApi
+    ): ChatRepository {
         return ChatRepository(api)
     }
 } 

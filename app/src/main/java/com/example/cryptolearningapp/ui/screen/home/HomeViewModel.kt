@@ -10,9 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,15 +23,13 @@ class HomeViewModel @Inject constructor(
     private val _lessons = MutableStateFlow<List<Lesson>>(emptyList())
     val lessons: StateFlow<List<Lesson>> = _lessons
 
-    private val _userProgress = MutableStateFlow<UserProgress?>(null)
-    val userProgress: StateFlow<UserProgress?> = _userProgress
+    val userProgress: StateFlow<UserProgress?> = repository.getUserProgress("user1")
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
     init {
         loadLessons()
-        loadUserProgress()
     }
 
     private fun loadLessons() {
@@ -49,20 +45,23 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun loadUserProgress() {
+    fun updateProgress(lessonId: Int, score: Int) {
         viewModelScope.launch {
-            repository.getUserProgress("user1")
-                .catch { e ->
-                    _error.value = "Không thể tải tiến độ học tập: ${e.message}"
+            try {
+                val currentProgress = userProgress.value
+                val completedLessons = currentProgress?.completedLessons?.toMutableList() ?: mutableListOf()
+                if (!completedLessons.contains(lessonId)) {
+                    completedLessons.add(lessonId)
                 }
-                .collect { progress ->
-                    _userProgress.value = progress
-                }
+                val totalScore = (currentProgress?.totalScore ?: 0) + score
+                repository.updateProgress("user1", completedLessons, totalScore)
+            } catch (e: Exception) {
+                _error.value = "Không thể cập nhật tiến độ: ${e.message}"
+            }
         }
     }
 
     fun refreshData() {
         loadLessons()
-        loadUserProgress()
     }
 } 

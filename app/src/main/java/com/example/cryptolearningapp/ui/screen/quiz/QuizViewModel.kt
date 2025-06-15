@@ -111,7 +111,7 @@ class QuizViewModel @Inject constructor(
                                 
                                 val newScore = progress.totalScore + scoreChange
                                 
-                                repository.updateUserProgress(
+                                repository.updateProgress(
                                     userId = "user1",
                                     completedLessons = newCompletedLessons,
                                     totalScore = newScore

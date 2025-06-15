@@ -5,9 +5,8 @@ import android.content.SharedPreferences
 import com.example.cryptolearningapp.data.model.Gender
 import com.example.cryptolearningapp.data.model.UserProfile
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +16,7 @@ class UserProfileRepository @Inject constructor(
 ) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private val _userProfile = MutableStateFlow<UserProfile?>(null)
-    val userProfile: Flow<UserProfile?> = _userProfile.asStateFlow()
+    val userProfile: StateFlow<UserProfile?> = _userProfile
 
     init {
         loadUserProfile()

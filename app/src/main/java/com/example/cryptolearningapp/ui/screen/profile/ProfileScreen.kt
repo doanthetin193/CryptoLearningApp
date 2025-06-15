@@ -32,71 +32,116 @@ fun ProfileScreen(
     onEditProfileClick: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    val userDataAndProgress by viewModel.userDataAndProgress.collectAsState()
-    val user = userDataAndProgress?.first
-    val userProgress = userDataAndProgress?.second
+    val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
+    val userProfile by viewModel.userProfile.collectAsState()
+    val userProgress by viewModel.userProgress.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { 
-                        Text(
-                            "Hồ sơ",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Hồ sơ") },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onPrimary
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Profile Header
+                    userProfile?.let { profile ->
+                        ProfileHeader(profile)
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Progress Stats
+                    userProgress?.let { progress ->
+                        ProfileStats(progress)
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Profile Actions
+                    ProfileActions(
+                        onEditProfileClick = onEditProfileClick,
+                        onResetProgress = { viewModel.resetProgress() }
                     )
-                )
-            }
-        ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                // Profile Header
-                ProfileHeader(user)
-                
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                // Profile Stats
-                ProfileStats(userProgress)
-                
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                // Profile Actions
-                ProfileActions(
-                    onEditProfileClick = onEditProfileClick,
-                    onResetProgress = { viewModel.resetProgress() }
-                )
+                }
             }
 
-            // Error message
+            // Error Message
             error?.let { errorMessage ->
-                Snackbar(
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(16.dp)
-                ) {
-                    Text(errorMessage)
-                }
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun ProfileSection(profile: UserProfile) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Profile",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Name: ${profile.name}")
+        }
+    }
+}
+
+@Composable
+private fun ProgressSection(progress: UserProgress) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Learning Progress",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Completed Lessons: ${progress.completedLessons.size}")
+            Text("Total Score: ${progress.totalScore}")
         }
     }
 }

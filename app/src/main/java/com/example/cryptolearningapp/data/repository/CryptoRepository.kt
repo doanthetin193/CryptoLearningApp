@@ -1,29 +1,26 @@
 package com.example.cryptolearningapp.data.repository
 
-import com.example.cryptolearningapp.data.dao.UserDao
-import com.example.cryptolearningapp.data.dao.UserProgressDao
+import com.example.cryptolearningapp.data.local.PreferenceManager
 import com.example.cryptolearningapp.data.model.User
 import com.example.cryptolearningapp.data.model.UserProgress
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CryptoRepository @Inject constructor(
-    private val userDao: UserDao,
-    private val userProgressDao: UserProgressDao
+    private val preferenceManager: PreferenceManager
 ) {
-    private val _progressUpdateEvent = MutableSharedFlow<Unit>()
-    val progressUpdateEvent: SharedFlow<Unit> = _progressUpdateEvent
+    fun getUser(userId: String): Flow<User?> = flow {
+        emit(preferenceManager.getUser())
+    }
 
-    fun getUser(userId: String): Flow<User?> = userDao.getUserById(userId)
-
-    suspend fun createUser(user: User) {
-        userDao.insertUser(user)
-        // Tạo UserProgress mặc định cho user mới
-        userProgressDao.insertUserProgress(
+    suspend fun saveUser(user: User) {
+        preferenceManager.saveUser(user)
+        // Initialize progress for new user
+        preferenceManager.saveUserProgress(
             UserProgress(
                 userId = user.id,
                 completedLessons = emptyList(),
@@ -32,15 +29,41 @@ class CryptoRepository @Inject constructor(
         )
     }
 
-    fun getUserProgress(userId: String): Flow<UserProgress?> = userProgressDao.getUserProgress(userId)
-
-    suspend fun updateUserProgress(userId: String, completedLessons: List<Int>, totalScore: Int) {
-        userProgressDao.updateProgress(userId, completedLessons, totalScore)
-        _progressUpdateEvent.emit(Unit)
+    fun getUserProgress(userId: String): StateFlow<UserProgress?> {
+        return preferenceManager.userProgress
     }
 
-    suspend fun resetUserProgress(userId: String) {
-        userProgressDao.updateProgress(userId, emptyList(), 0)
-        _progressUpdateEvent.emit(Unit)
+    suspend fun updateProgress(userId: String, completedLessons: List<Int>, totalScore: Int) {
+        val currentProgress = preferenceManager.getUserProgress()
+        val newProgress = if (currentProgress != null) {
+            currentProgress.copy(
+                completedLessons = completedLessons,
+                totalScore = totalScore
+            )
+        } else {
+            UserProgress(
+                userId = userId,
+                completedLessons = completedLessons,
+                totalScore = totalScore
+            )
+        }
+        preferenceManager.saveUserProgress(newProgress)
+    }
+
+    suspend fun resetProgress(userId: String) {
+        val currentProgress = preferenceManager.getUserProgress()
+        val newProgress = if (currentProgress != null) {
+            currentProgress.copy(
+                completedLessons = emptyList(),
+                totalScore = 0
+            )
+        } else {
+            UserProgress(
+                userId = userId,
+                completedLessons = emptyList(),
+                totalScore = 0
+            )
+        }
+        preferenceManager.saveUserProgress(newProgress)
     }
 } 
