@@ -100,23 +100,6 @@ fun LessonScreen(
         }
     }
 
-    // Keyword Definition Dialog
-    selectedKeyword?.let { keyword ->
-        AlertDialog(
-            onDismissRequest = { selectedKeyword = null },
-            title = { Text(keyword) },
-            text = {
-                // Here we would show the AI-generated definition
-                Text("Loading definition...")
-            },
-            confirmButton = {
-                TextButton(onClick = { selectedKeyword = null }) {
-                    Text("Đóng")
-                }
-            }
-        )
-    }
-
     if (showChatDialog) {
         ChatDialog(
             onDismiss = { showChatDialog = false }
