@@ -109,15 +109,11 @@ class QuizViewModel @Inject constructor(
                 )
             } else {
                 // Calculate final score
-                val finalScore = when {
-                    currentState.correctAnswers >= MIN_CORRECT_ANSWERS_FOR_COMPLETION -> CORRECT_ANSWER_POINTS
-                    currentState.correctAnswers > 0 -> PARTIAL_CORRECT_POINTS
-                    else -> 0
-                }
+                val finalScore = calculateScore()
                 val isLessonCompleted = currentState.correctAnswers >= MIN_CORRECT_ANSWERS_FOR_COMPLETION
 
                 // Update progress in repository
-                updateProgress(finalScore, isLessonCompleted)
+                updateProgress()
 
                 // Update state to completed
                 _quizState.value = QuizState.Completed(
@@ -129,29 +125,64 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    private fun updateProgress(finalScore: Int, isLessonCompleted: Boolean) {
+    private fun calculateScore(): Int {
+        val currentState = _quizState.value
+        if (currentState !is QuizState.Success) return 0
+        
+        val correctAnswers = currentState.correctAnswers
+        val totalQuestions = currentState.questions.size
+        val wrongAnswers = totalQuestions - correctAnswers
+        
+        // Điểm thưởng cho câu đúng
+        val correctPoints = when (correctAnswers) {
+            3 -> CORRECT_ANSWER_POINTS  // Đúng cả 3 câu: 10 điểm
+            2 -> PARTIAL_CORRECT_POINTS  // Đúng 2 câu: 6 điểm
+            1 -> 3   // Đúng 1 câu: 3 điểm
+            else -> 0 // Không đúng câu nào: 0 điểm
+        }
+        
+        // Trừ điểm cho câu sai (mỗi câu sai trừ 2 điểm)
+        val penaltyPoints = wrongAnswers * 2
+        
+        // Tổng điểm = điểm thưởng - điểm trừ
+        return correctPoints - penaltyPoints // Bỏ coerceAtLeast để cho phép điểm âm
+    }
+
+    private fun updateProgress() {
         viewModelScope.launch {
             try {
                 currentLessonId?.let { lessonId ->
                     val currentProgress = repository.getUserProgress("user1").first()
                     currentProgress?.let { progress ->
-                        // Kiểm tra xem bài học đã hoàn thành chưa
-                        val isAlreadyCompleted = progress.completedLessons.contains(lessonId)
-                        
-                        // Chỉ cập nhật điểm và trạng thái nếu bài học chưa hoàn thành
-                        if (!isAlreadyCompleted) {
-                            repository.updateProgress(
-                                userId = "user1",
-                                completedLessons = if (isLessonCompleted) {
-                                    // Chỉ thêm vào completedLessons nếu đã trả lời đúng 3 câu
-                                    progress.completedLessons + lessonId
-                                } else {
-                                    progress.completedLessons
-                                },
-                                totalScore = progress.totalScore + finalScore
-                            )
+                        val currentState = _quizState.value
+                        if (currentState is QuizState.Success) {
+                            val finalScore = calculateScore()
+                            val isLessonCompleted = currentState.correctAnswers >= MIN_CORRECT_ANSWERS_FOR_COMPLETION
+                            
+                            // Kiểm tra xem bài học đã hoàn thành chưa
+                            val isAlreadyCompleted = progress.completedLessons.contains(lessonId)
+                            
+                            if (!isAlreadyCompleted) {
+                                // Nếu bài học chưa hoàn thành, cập nhật điểm và trạng thái
+                                repository.updateProgress(
+                                    userId = "user1",
+                                    completedLessons = if (isLessonCompleted) {
+                                        progress.completedLessons + lessonId
+                                    } else {
+                                        progress.completedLessons
+                                    },
+                                    totalScore = progress.totalScore + finalScore
+                                )
+                            } else {
+                                // Nếu bài học đã hoàn thành, chỉ cập nhật điểm (có thể trừ điểm)
+                                val newTotalScore = progress.totalScore + finalScore
+                                repository.updateProgress(
+                                    userId = "user1",
+                                    completedLessons = progress.completedLessons,
+                                    totalScore = newTotalScore.coerceAtLeast(0) // Đảm bảo tổng điểm không âm
+                                )
+                            }
                         }
-                        // Nếu bài học đã hoàn thành, không cập nhật gì cả, chỉ hiển thị điểm
                     }
                 }
             } catch (e: Exception) {

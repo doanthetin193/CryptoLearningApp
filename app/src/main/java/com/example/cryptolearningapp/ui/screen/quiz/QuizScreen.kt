@@ -127,18 +127,18 @@ fun QuizScreen(
                         )
 
                         // Question number
-                        Text(
+                                Text(
                             "Câu hỏi ${state.currentQuestionIndex + 1}/${state.questions.size}",
-                            style = MaterialTheme.typography.titleMedium,
+                                    style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(bottom = 8.dp)
-                        )
+                                )
 
                         // Question
-                        Text(
+                                Text(
                             state.questions[state.currentQuestionIndex].question,
-                            style = MaterialTheme.typography.titleLarge,
+                                    style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(bottom = 16.dp)
-                        )
+                                )
 
                         // Options
                         state.questions[state.currentQuestionIndex].options.forEach { option ->

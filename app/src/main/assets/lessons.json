@@ -6,14 +6,14 @@
     "keywords": ["blockchain", "distributed ledger", "decentralization", "immutability", "transparency", "nodes", "hash", "consensus"],
     "quiz": [
       {
-        "question": "Đâu là đặc điểm quan trọng nhất của blockchain?",
-        "options": [
-          "Tốc độ giao dịch nhanh",
-          "Tính phân tán và không thể thay đổi",
-          "Chi phí giao dịch thấp",
-          "Khả năng mở rộng vô hạn"
-        ],
-        "answer": "Tính phân tán và không thể thay đổi"
+      "question": "Đâu là đặc điểm quan trọng nhất của blockchain?",
+      "options": [
+        "Tốc độ giao dịch nhanh",
+        "Tính phân tán và không thể thay đổi",
+        "Chi phí giao dịch thấp",
+        "Khả năng mở rộng vô hạn"
+      ],
+      "answer": "Tính phân tán và không thể thay đổi"
       },
       {
         "question": "Vai trò của nodes trong mạng blockchain là gì?",
@@ -44,14 +44,14 @@
     "keywords": ["bitcoin", "cryptocurrency", "satoshi nakamoto", "mining", "wallet", "halving", "peer-to-peer", "altcoins", "stablecoins"],
     "quiz": [
       {
-        "question": "Tổng số Bitcoin có thể được tạo ra là bao nhiêu?",
-        "options": [
-          "10 triệu",
-          "21 triệu",
-          "50 triệu",
-          "Không giới hạn"
-        ],
-        "answer": "21 triệu"
+      "question": "Tổng số Bitcoin có thể được tạo ra là bao nhiêu?",
+      "options": [
+        "10 triệu",
+        "21 triệu",
+        "50 triệu",
+        "Không giới hạn"
+      ],
+      "answer": "21 triệu"
       },
       {
         "question": "Cơ chế halving trong Bitcoin có tác dụng gì?",
@@ -82,14 +82,14 @@
     "keywords": ["smart contract", "ethereum", "solidity", "automation", "decentralization", "defi", "blockchain", "programming", "automation"],
     "quiz": [
       {
-        "question": "Smart Contract là gì?",
-        "options": [
-          "Một loại tiền điện tử",
+      "question": "Smart Contract là gì?",
+      "options": [
+        "Một loại tiền điện tử",
           "Mã tự động thực thi các điều khoản hợp đồng",
-          "Một loại ví điện tử",
-          "Một loại sàn giao dịch"
-        ],
-        "answer": "Mã tự động thực thi các điều khoản hợp đồng"
+        "Một loại ví điện tử",
+        "Một loại sàn giao dịch"
+      ],
+      "answer": "Mã tự động thực thi các điều khoản hợp đồng"
       },
       {
         "question": "Ngôn ngữ lập trình phổ biến nhất cho Smart Contract trên Ethereum là gì?",
@@ -120,14 +120,14 @@
     "keywords": ["ethereum", "defi", "dapps", "yield farming", "stablecoin", "smart contracts", "dex", "lending", "staking"],
     "quiz": [
       {
-        "question": "DeFi là viết tắt của cụm từ nào?",
-        "options": [
-          "Decentralized Finance",
-          "Digital Finance",
-          "Distributed Finance",
-          "Direct Finance"
-        ],
-        "answer": "Decentralized Finance"
+      "question": "DeFi là viết tắt của cụm từ nào?",
+      "options": [
+        "Decentralized Finance",
+        "Digital Finance",
+        "Distributed Finance",
+        "Direct Finance"
+      ],
+      "answer": "Decentralized Finance"
       },
       {
         "question": "Đâu là ứng dụng DeFi phổ biến nhất?",
@@ -158,14 +158,14 @@
     "keywords": ["nft", "metaverse", "digital art", "virtual land", "collectibles", "blockchain", "gaming", "virtual reality", "digital ownership"],
     "quiz": [
       {
-        "question": "NFT là viết tắt của cụm từ nào?",
-        "options": [
-          "New Financial Technology",
-          "Non-Fungible Token",
-          "Network File Transfer",
-          "Next Future Technology"
-        ],
-        "answer": "Non-Fungible Token"
+      "question": "NFT là viết tắt của cụm từ nào?",
+      "options": [
+        "New Financial Technology",
+        "Non-Fungible Token",
+        "Network File Transfer",
+        "Next Future Technology"
+      ],
+      "answer": "Non-Fungible Token"
       },
       {
         "question": "Đâu là đặc điểm quan trọng nhất của NFT?",
@@ -196,14 +196,14 @@
     "keywords": ["security", "cold wallet", "seed phrase", "2fa", "privacy", "hardware wallet", "multisig", "scam", "phishing"],
     "quiz": [
       {
-        "question": "Đâu là biện pháp bảo mật quan trọng nhất cho ví crypto?",
-        "options": [
-          "Mật khẩu mạnh",
-          "Lưu trữ seed phrase an toàn",
-          "Sử dụng 2FA",
-          "Cập nhật phần mềm thường xuyên"
-        ],
-        "answer": "Lưu trữ seed phrase an toàn"
+      "question": "Đâu là biện pháp bảo mật quan trọng nhất cho ví crypto?",
+      "options": [
+        "Mật khẩu mạnh",
+        "Lưu trữ seed phrase an toàn",
+        "Sử dụng 2FA",
+        "Cập nhật phần mềm thường xuyên"
+      ],
+      "answer": "Lưu trữ seed phrase an toàn"
       },
       {
         "question": "Ví lạnh (Cold Wallet) có ưu điểm gì so với ví nóng?",
@@ -234,14 +234,14 @@
     "keywords": ["layer 2", "scaling", "rollups", "sidechains", "state channels", "plasma", "optimistic", "zk", "lightning"],
     "quiz": [
       {
-        "question": "Mục đích chính của Layer 2 là gì?",
-        "options": [
-          "Tăng tính bảo mật",
-          "Cải thiện tốc độ và giảm chi phí giao dịch",
-          "Tăng tính ẩn danh",
-          "Tạo thêm token mới"
-        ],
-        "answer": "Cải thiện tốc độ và giảm chi phí giao dịch"
+      "question": "Mục đích chính của Layer 2 là gì?",
+      "options": [
+        "Tăng tính bảo mật",
+        "Cải thiện tốc độ và giảm chi phí giao dịch",
+        "Tăng tính ẩn danh",
+        "Tạo thêm token mới"
+      ],
+      "answer": "Cải thiện tốc độ và giảm chi phí giao dịch"
       },
       {
         "question": "Đâu là giải pháp Layer 2 phổ biến nhất cho Bitcoin?",
@@ -272,14 +272,14 @@
     "keywords": ["staking", "yield farming", "liquidity", "rewards", "apy", "defi", "validator", "delegator", "liquidity provider"],
     "quiz": [
       {
-        "question": "Staking là gì?",
-        "options": [
-          "Mua bán token",
-          "Khóa token để nhận phần thưởng",
-          "Chuyển token giữa các ví",
-          "Tạo token mới"
-        ],
-        "answer": "Khóa token để nhận phần thưởng"
+      "question": "Staking là gì?",
+      "options": [
+        "Mua bán token",
+        "Khóa token để nhận phần thưởng",
+        "Chuyển token giữa các ví",
+        "Tạo token mới"
+      ],
+      "answer": "Khóa token để nhận phần thưởng"
       },
       {
         "question": "Đâu là rủi ro chính của Yield Farming?",
@@ -310,14 +310,14 @@
     "keywords": ["dao", "governance", "voting", "proposal", "decentralization", "autonomous", "smart contract", "democracy", "transparency"],
     "quiz": [
       {
-        "question": "DAO là viết tắt của cụm từ nào?",
-        "options": [
-          "Digital Asset Organization",
-          "Decentralized Autonomous Organization",
-          "Distributed Application Organization",
-          "Digital Autonomous Organization"
-        ],
-        "answer": "Decentralized Autonomous Organization"
+      "question": "DAO là viết tắt của cụm từ nào?",
+      "options": [
+        "Digital Asset Organization",
+        "Decentralized Autonomous Organization",
+        "Distributed Application Organization",
+        "Digital Autonomous Organization"
+      ],
+      "answer": "Decentralized Autonomous Organization"
       },
       {
         "question": "Quyền biểu quyết trong DAO được xác định bởi yếu tố nào?",
@@ -348,14 +348,14 @@
     "keywords": ["cross-chain", "interoperability", "bridges", "atomic swaps", "wrapped tokens", "blockchain", "polkadot", "cosmos", "chainlink"],
     "quiz": [
       {
-        "question": "Mục đích của cross-chain là gì?",
-        "options": [
-          "Tăng tốc độ giao dịch",
-          "Cho phép tương tác giữa các blockchain",
-          "Tăng tính bảo mật",
-          "Tạo thêm token mới"
-        ],
-        "answer": "Cho phép tương tác giữa các blockchain"
+      "question": "Mục đích của cross-chain là gì?",
+      "options": [
+        "Tăng tốc độ giao dịch",
+        "Cho phép tương tác giữa các blockchain",
+        "Tăng tính bảo mật",
+        "Tạo thêm token mới"
+      ],
+      "answer": "Cho phép tương tác giữa các blockchain"
       },
       {
         "question": "Đâu là giải pháp cross-chain phổ biến nhất?",

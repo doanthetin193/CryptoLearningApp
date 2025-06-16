@@ -23,6 +23,7 @@ fun ChatDialog(
 ) {
     var message by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
+    val canUseChat by viewModel.canUseChat.collectAsState()
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
@@ -62,26 +63,33 @@ fun ChatDialog(
                         .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
                 ) {
-                    when (uiState) {
-                        is ChatUiState.Initial -> {
+                    when {
+                        !canUseChat -> {
+                            Text(
+                                text = "Bạn cần đạt ít nhất 50 điểm để sử dụng tính năng này.\nHãy hoàn thành các bài học và quiz để tích lũy điểm!",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                        uiState is ChatUiState.Initial -> {
                             Text(
                                 text = "Nhập câu hỏi của bạn ở dưới...",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                             )
                         }
-                        is ChatUiState.Loading -> {
+                        uiState is ChatUiState.Loading -> {
                             CircularProgressIndicator(
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
-                        is ChatUiState.Success -> {
+                        uiState is ChatUiState.Success -> {
                             Text(
                                 text = (uiState as ChatUiState.Success).message,
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
-                        is ChatUiState.Error -> {
+                        uiState is ChatUiState.Error -> {
                             Text(
                                 text = (uiState as ChatUiState.Error).message,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -101,7 +109,8 @@ fun ChatDialog(
                         onValueChange = { message = it },
                         modifier = Modifier.weight(1f),
                         placeholder = { Text("Nhập câu hỏi của bạn...") },
-                        singleLine = true
+                        singleLine = true,
+                        enabled = canUseChat
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
@@ -111,7 +120,7 @@ fun ChatDialog(
                                 message = ""
                             }
                         },
-                        enabled = message.isNotBlank() && uiState !is ChatUiState.Loading
+                        enabled = message.isNotBlank() && uiState !is ChatUiState.Loading && canUseChat
                     ) {
                         Text("Gửi")
                     }
