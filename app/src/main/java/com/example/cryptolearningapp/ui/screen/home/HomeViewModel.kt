@@ -57,7 +57,7 @@ class HomeViewModel @Inject constructor(
                 repository.updateProgress("user1", completedLessons, totalScore)
             } catch (e: Exception) {
                 _error.value = "Không thể cập nhật tiến độ: ${e.message}"
-            }
+                }
         }
     }
 

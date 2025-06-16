@@ -2,161 +2,381 @@
   {
     "id": 1,
     "title": "Giới thiệu về Blockchain",
-    "content": "Blockchain là một công nghệ sổ cái phân tán (distributed ledger) cho phép lưu trữ và truyền tải thông tin một cách an toàn, minh bạch và không thể thay đổi. Mỗi khối (block) trong chuỗi chứa thông tin về các giao dịch và được liên kết với khối trước đó thông qua mã hóa, tạo thành một chuỗi không thể phá vỡ.\n\nCác đặc điểm chính của blockchain:\n1. Phân tán: Dữ liệu được lưu trữ trên nhiều máy tính\n2. Minh bạch: Mọi giao dịch đều có thể theo dõi\n3. Bất biến: Dữ liệu không thể bị thay đổi sau khi được ghi nhận\n4. Bảo mật: Sử dụng mã hóa để bảo vệ thông tin",
-    "keywords": ["blockchain", "distributed ledger", "decentralization", "immutability", "transparency"],
-    "quiz": {
-      "question": "Đâu là đặc điểm quan trọng nhất của blockchain?",
-      "options": [
-        "Tốc độ giao dịch nhanh",
-        "Tính phân tán và không thể thay đổi",
-        "Chi phí giao dịch thấp",
-        "Khả năng mở rộng vô hạn"
-      ],
-      "answer": "Tính phân tán và không thể thay đổi"
-    }
+    "content": "Blockchain là một công nghệ sổ cái phân tán (distributed ledger) cho phép lưu trữ và truyền tải thông tin một cách an toàn, minh bạch và không thể thay đổi. Mỗi khối (block) trong chuỗi chứa thông tin về các giao dịch và được liên kết với khối trước đó thông qua mã hóa, tạo thành một chuỗi không thể phá vỡ.\n\nCác đặc điểm chính của blockchain:\n1. Phân tán: Dữ liệu được lưu trữ trên nhiều máy tính (nodes) trong mạng lưới, không có điểm trung tâm nào kiểm soát toàn bộ hệ thống. Điều này giúp tăng tính bảo mật và khả năng chống lại các cuộc tấn công.\n2. Minh bạch: Mọi giao dịch đều được ghi lại và có thể theo dõi bởi bất kỳ ai trong mạng lưới. Mỗi giao dịch đều có một mã định danh duy nhất (hash) và được lưu trữ vĩnh viễn.\n3. Bất biến: Dữ liệu một khi đã được ghi vào blockchain thì không thể bị thay đổi hoặc xóa bỏ. Điều này được đảm bảo bởi cơ chế mã hóa và sự đồng thuận của toàn bộ mạng lưới.\n4. Bảo mật: Sử dụng các thuật toán mã hóa phức tạp để bảo vệ thông tin. Mỗi khối đều chứa hash của khối trước đó, tạo thành một chuỗi liên kết không thể phá vỡ.\n\nỨng dụng của blockchain:\n1. Tiền điện tử: Bitcoin, Ethereum và các loại tiền điện tử khác\n2. Hợp đồng thông minh: Tự động hóa các điều khoản hợp đồng\n3. Chuỗi cung ứng: Theo dõi nguồn gốc sản phẩm\n4. Bỏ phiếu điện tử: Đảm bảo tính minh bạch trong bầu cử\n5. Quản lý danh tính: Xác thực và bảo vệ thông tin cá nhân",
+    "keywords": ["blockchain", "distributed ledger", "decentralization", "immutability", "transparency", "nodes", "hash", "consensus"],
+    "quiz": [
+      {
+        "question": "Đâu là đặc điểm quan trọng nhất của blockchain?",
+        "options": [
+          "Tốc độ giao dịch nhanh",
+          "Tính phân tán và không thể thay đổi",
+          "Chi phí giao dịch thấp",
+          "Khả năng mở rộng vô hạn"
+        ],
+        "answer": "Tính phân tán và không thể thay đổi"
+      },
+      {
+        "question": "Vai trò của nodes trong mạng blockchain là gì?",
+        "options": [
+          "Chỉ lưu trữ dữ liệu",
+          "Xác thực và lưu trữ dữ liệu, tham gia vào quá trình đồng thuận",
+          "Chỉ thực hiện giao dịch",
+          "Chỉ tạo khối mới"
+        ],
+        "answer": "Xác thực và lưu trữ dữ liệu, tham gia vào quá trình đồng thuận"
+      },
+      {
+        "question": "Ứng dụng nào sau đây KHÔNG phải là ứng dụng phổ biến của blockchain?",
+        "options": [
+          "Tiền điện tử",
+          "Hợp đồng thông minh",
+          "Mạng xã hội truyền thống",
+          "Quản lý chuỗi cung ứng"
+        ],
+        "answer": "Mạng xã hội truyền thống"
+      }
+    ]
   },
   {
     "id": 2,
     "title": "Bitcoin và Tiền điện tử",
-    "content": "Bitcoin là đồng tiền điện tử đầu tiên và lớn nhất thế giới, được tạo ra bởi Satoshi Nakamoto vào năm 2009. Bitcoin sử dụng công nghệ blockchain để ghi lại các giao dịch và đảm bảo tính minh bạch, an toàn.\n\nCác đặc điểm của Bitcoin:\n1. Nguồn cung giới hạn: Chỉ có 21 triệu Bitcoin\n2. Không cần trung gian: Giao dịch trực tiếp giữa người dùng\n3. Ẩn danh: Không cần thông tin cá nhân\n4. Phi tập trung: Không bị kiểm soát bởi bất kỳ tổ chức nào",
-    "keywords": ["bitcoin", "cryptocurrency", "satoshi nakamoto", "mining", "wallet"],
-    "quiz": {
-      "question": "Tổng số Bitcoin có thể được tạo ra là bao nhiêu?",
-      "options": [
-        "10 triệu",
-        "21 triệu",
-        "50 triệu",
-        "Không giới hạn"
-      ],
-      "answer": "21 triệu"
-    }
+    "content": "Bitcoin là đồng tiền điện tử đầu tiên và lớn nhất thế giới, được tạo ra bởi Satoshi Nakamoto vào năm 2009. Bitcoin sử dụng công nghệ blockchain để ghi lại các giao dịch và đảm bảo tính minh bạch, an toàn.\n\nCác đặc điểm của Bitcoin:\n1. Nguồn cung giới hạn: Chỉ có 21 triệu Bitcoin có thể được tạo ra, giúp duy trì giá trị và chống lạm phát. Việc tạo mới Bitcoin (mining) sẽ giảm dần theo thời gian thông qua cơ chế halving.\n2. Không cần trung gian: Giao dịch được thực hiện trực tiếp giữa người dùng (peer-to-peer) mà không cần thông qua ngân hàng hay tổ chức tài chính trung gian. Điều này giúp giảm chi phí và thời gian giao dịch.\n3. Ẩn danh: Người dùng không cần cung cấp thông tin cá nhân để thực hiện giao dịch. Mỗi giao dịch chỉ hiển thị địa chỉ ví, không phải danh tính thực.\n4. Phi tập trung: Bitcoin không bị kiểm soát bởi bất kỳ tổ chức hay chính phủ nào. Các quyết định về phát triển và cập nhật được thực hiện thông qua sự đồng thuận của cộng đồng.\n\nCách hoạt động của Bitcoin:\n1. Mining: Quá trình xác thực giao dịch và tạo khối mới\n2. Wallet: Ví điện tử để lưu trữ và quản lý Bitcoin\n3. Transaction: Giao dịch được mã hóa và xác thực bởi mạng lưới\n4. Blockchain: Sổ cái phân tán lưu trữ toàn bộ lịch sử giao dịch\n\nCác loại tiền điện tử khác:\n1. Altcoins: Các đồng tiền điện tử thay thế Bitcoin\n2. Stablecoins: Tiền điện tử có giá trị ổn định\n3. Utility tokens: Token phục vụ cho các ứng dụng cụ thể\n4. Security tokens: Token đại diện cho tài sản thực",
+    "keywords": ["bitcoin", "cryptocurrency", "satoshi nakamoto", "mining", "wallet", "halving", "peer-to-peer", "altcoins", "stablecoins"],
+    "quiz": [
+      {
+        "question": "Tổng số Bitcoin có thể được tạo ra là bao nhiêu?",
+        "options": [
+          "10 triệu",
+          "21 triệu",
+          "50 triệu",
+          "Không giới hạn"
+        ],
+        "answer": "21 triệu"
+      },
+      {
+        "question": "Cơ chế halving trong Bitcoin có tác dụng gì?",
+        "options": [
+          "Tăng tốc độ giao dịch",
+          "Giảm một nửa phần thưởng cho thợ đào sau mỗi 210,000 khối",
+          "Tăng giá Bitcoin",
+          "Giảm phí giao dịch"
+        ],
+        "answer": "Giảm một nửa phần thưởng cho thợ đào sau mỗi 210,000 khối"
+      },
+      {
+        "question": "Đâu là đặc điểm của Stablecoin?",
+        "options": [
+          "Giá trị biến động mạnh",
+          "Được hỗ trợ bởi tài sản thực để duy trì giá ổn định",
+          "Chỉ có thể sử dụng trong một ứng dụng cụ thể",
+          "Được phát hành bởi chính phủ"
+        ],
+        "answer": "Được hỗ trợ bởi tài sản thực để duy trì giá ổn định"
+      }
+    ]
   },
   {
     "id": 3,
     "title": "Smart Contracts",
-    "content": "Smart Contract (Hợp đồng thông minh) là các đoạn mã tự động thực thi các điều khoản của hợp đồng khi đáp ứng các điều kiện được định trước. Chúng chạy trên blockchain và không thể bị thay đổi sau khi triển khai.\n\nƯu điểm của Smart Contracts:\n1. Tự động hóa: Không cần trung gian\n2. Minh bạch: Mọi người có thể xem mã nguồn\n3. Bảo mật: Được bảo vệ bởi blockchain\n4. Tiết kiệm chi phí: Giảm chi phí trung gian",
-    "keywords": ["smart contract", "ethereum", "solidity", "automation", "decentralization"],
-    "quiz": {
-      "question": "Smart Contract là gì?",
-      "options": [
-        "Một loại tiền điện tử",
-        "Một loại ví điện tử",
-        "Mã tự động thực thi các điều khoản hợp đồng",
-        "Một loại sàn giao dịch"
-      ],
-      "answer": "Mã tự động thực thi các điều khoản hợp đồng"
-    }
+    "content": "Smart Contract (Hợp đồng thông minh) là các đoạn mã tự động thực thi các điều khoản của hợp đồng khi đáp ứng các điều kiện được định trước. Chúng chạy trên blockchain và không thể bị thay đổi sau khi triển khai.\n\nNguyên lý hoạt động của Smart Contracts:\n1. Điều kiện: Các điều kiện được viết bằng mã lập trình\n2. Tự động: Thực thi tự động khi điều kiện được thỏa mãn\n3. Minh bạch: Mã nguồn có thể được kiểm tra bởi bất kỳ ai\n4. Bất biến: Không thể thay đổi sau khi triển khai\n\nƯu điểm của Smart Contracts:\n1. Tự động hóa: Loại bỏ nhu cầu về trung gian và giảm thiểu lỗi do con người\n2. Minh bạch: Mọi người có thể xem và kiểm tra mã nguồn\n3. Bảo mật: Được bảo vệ bởi blockchain và mã hóa\n4. Tiết kiệm chi phí: Giảm chi phí trung gian và thời gian xử lý\n5. Đáng tin cậy: Thực thi chính xác theo điều kiện đã định\n\nỨng dụng của Smart Contracts:\n1. Tài chính phi tập trung (DeFi): Cho vay, giao dịch, bảo hiểm\n2. Quản lý chuỗi cung ứng: Theo dõi sản phẩm và thanh toán tự động\n3. Bỏ phiếu điện tử: Đảm bảo tính minh bạch trong bầu cử\n4. Bất động sản: Tự động hóa quá trình mua bán và chuyển nhượng\n5. Game và NFT: Quản lý tài sản số và quyền sở hữu\n\nNgôn ngữ lập trình phổ biến:\n1. Solidity: Ngôn ngữ chính cho Ethereum\n2. Vyper: Ngôn ngữ thay thế cho Ethereum\n3. Rust: Sử dụng trong Solana và Polkadot\n4. Move: Ngôn ngữ của Diem (Libra)",
+    "keywords": ["smart contract", "ethereum", "solidity", "automation", "decentralization", "defi", "blockchain", "programming", "automation"],
+    "quiz": [
+      {
+        "question": "Smart Contract là gì?",
+        "options": [
+          "Một loại tiền điện tử",
+          "Mã tự động thực thi các điều khoản hợp đồng",
+          "Một loại ví điện tử",
+          "Một loại sàn giao dịch"
+        ],
+        "answer": "Mã tự động thực thi các điều khoản hợp đồng"
+      },
+      {
+        "question": "Ngôn ngữ lập trình phổ biến nhất cho Smart Contract trên Ethereum là gì?",
+        "options": [
+          "Python",
+          "JavaScript",
+          "Solidity",
+          "Java"
+        ],
+        "answer": "Solidity"
+      },
+      {
+        "question": "Đâu là ưu điểm chính của Smart Contract so với hợp đồng truyền thống?",
+        "options": [
+          "Chi phí triển khai thấp hơn",
+          "Tự động hóa và không cần trung gian",
+          "Dễ dàng sửa đổi sau khi triển khai",
+          "Không cần kiểm tra bảo mật"
+        ],
+        "answer": "Tự động hóa và không cần trung gian"
+      }
+    ]
   },
   {
     "id": 4,
     "title": "Ethereum và DeFi",
-    "content": "Ethereum là nền tảng blockchain thế hệ thứ hai, cho phép phát triển các ứng dụng phi tập trung (dApps) và smart contracts. DeFi (Tài chính phi tập trung) là hệ sinh thái các ứng dụng tài chính chạy trên blockchain.\n\nCác ứng dụng DeFi phổ biến:\n1. Lending/Borrowing: Cho vay và đi vay phi tập trung\n2. DEX: Sàn giao dịch phi tập trung\n3. Yield Farming: Tạo lợi nhuận từ tài sản crypto\n4. Stablecoins: Tiền điện tử ổn định giá",
-    "keywords": ["ethereum", "defi", "dapps", "yield farming", "stablecoin"],
-    "quiz": {
-      "question": "DeFi là viết tắt của cụm từ nào?",
-      "options": [
-        "Decentralized Finance",
-        "Digital Finance",
-        "Distributed Finance",
-        "Direct Finance"
-      ],
-      "answer": "Decentralized Finance"
-    }
+    "content": "Ethereum là nền tảng blockchain thế hệ thứ hai, cho phép phát triển các ứng dụng phi tập trung (dApps) và smart contracts. DeFi (Tài chính phi tập trung) là hệ sinh thái các ứng dụng tài chính chạy trên blockchain.\n\nĐặc điểm của Ethereum:\n1. Smart Contracts: Cho phép tạo và triển khai các hợp đồng thông minh\n2. EVM: Máy ảo Ethereum thực thi mã smart contract\n3. Gas: Phí giao dịch để thực thi các hoạt động trên mạng\n4. ETH: Token gốc của mạng Ethereum\n\nCác ứng dụng DeFi phổ biến:\n1. Lending/Borrowing: Cho vay và đi vay phi tập trung\n   - Aave: Nền tảng cho vay phi tập trung\n   - Compound: Giao thức cho vay tự động\n   - MakerDAO: Hệ thống tạo stablecoin DAI\n2. DEX (Sàn giao dịch phi tập trung):\n   - Uniswap: Giao thức trao đổi tự động\n   - SushiSwap: Fork của Uniswap với tính năng bổ sung\n   - Curve: Tối ưu cho giao dịch stablecoin\n3. Yield Farming: Tạo lợi nhuận từ tài sản crypto\n   - Liquidity Mining: Cung cấp thanh khoản để nhận token\n   - Staking: Khóa token để nhận phần thưởng\n   - Vaults: Tự động hóa chiến lược đầu tư\n4. Stablecoins: Tiền điện tử ổn định giá\n   - DAI: Stablecoin phi tập trung\n   - USDC: Stablecoin được hỗ trợ bởi USD\n   - UST: Stablecoin thuật toán\n\nRủi ro và thách thức:\n1. Bảo mật: Lỗ hổng smart contract\n2. Khả năng mở rộng: Tắc nghẽn mạng và phí gas cao\n3. Rủi ro thanh khoản: Biến động giá và slippage\n4. Quy định: Vấn đề pháp lý và tuân thủ",
+    "keywords": ["ethereum", "defi", "dapps", "yield farming", "stablecoin", "smart contracts", "dex", "lending", "staking"],
+    "quiz": [
+      {
+        "question": "DeFi là viết tắt của cụm từ nào?",
+        "options": [
+          "Decentralized Finance",
+          "Digital Finance",
+          "Distributed Finance",
+          "Direct Finance"
+        ],
+        "answer": "Decentralized Finance"
+      },
+      {
+        "question": "Đâu là ứng dụng DeFi phổ biến nhất?",
+        "options": [
+          "Sàn giao dịch phi tập trung (DEX)",
+          "Ví điện tử",
+          "Mạng xã hội",
+          "Trò chơi điện tử"
+        ],
+        "answer": "Sàn giao dịch phi tập trung (DEX)"
+      },
+      {
+        "question": "Gas trong Ethereum là gì?",
+        "options": [
+          "Token thưởng cho thợ đào",
+          "Phí giao dịch để thực thi các hoạt động trên mạng",
+          "Loại token mới được phát hành",
+          "Cơ chế bảo mật của mạng"
+        ],
+        "answer": "Phí giao dịch để thực thi các hoạt động trên mạng"
+      }
+    ]
   },
   {
     "id": 5,
     "title": "NFT và Metaverse",
-    "content": "NFT (Non-Fungible Token) là token không thể thay thế, đại diện cho quyền sở hữu một tài sản số độc nhất. Metaverse là thế giới ảo nơi người dùng có thể tương tác, mua bán và sở hữu tài sản số.\n\nỨng dụng của NFT:\n1. Nghệ thuật số: Tranh, nhạc, video\n2. Game items: Vật phẩm trong game\n3. Bất động sản ảo: Đất đai trong metaverse\n4. Thẻ sưu tầm: Thẻ thể thao, thẻ nhân vật",
-    "keywords": ["nft", "metaverse", "digital art", "virtual land", "collectibles"],
-    "quiz": {
-      "question": "NFT là viết tắt của cụm từ nào?",
-      "options": [
-        "New Financial Technology",
-        "Non-Fungible Token",
-        "Network File Transfer",
-        "Next Future Technology"
-      ],
-      "answer": "Non-Fungible Token"
-    }
+    "content": "NFT (Non-Fungible Token) là token không thể thay thế, đại diện cho quyền sở hữu một tài sản số độc nhất. Metaverse là thế giới ảo nơi người dùng có thể tương tác, mua bán và sở hữu tài sản số.\n\nĐặc điểm của NFT:\n1. Tính độc nhất: Mỗi NFT có một mã định danh riêng\n2. Không thể thay thế: Không thể hoán đổi 1:1 như tiền điện tử\n3. Sở hữu thực sự: Quyền sở hữu được ghi nhận trên blockchain\n4. Khả năng chuyển nhượng: Có thể mua bán, trao đổi\n\nỨng dụng của NFT:\n1. Nghệ thuật số:\n   - Tranh kỹ thuật số\n   - Nhạc và video\n   - Ảnh và meme\n   - Tác phẩm nghệ thuật tương tác\n2. Game items:\n   - Vật phẩm trong game\n   - Nhân vật độc nhất\n   - Đất đai trong game\n   - Vũ khí và trang bị\n3. Bất động sản ảo:\n   - Đất đai trong metaverse\n   - Tòa nhà và công trình\n   - Không gian quảng cáo\n   - Sự kiện ảo\n4. Thẻ sưu tầm:\n   - Thẻ thể thao\n   - Thẻ nhân vật\n   - Thẻ sự kiện\n   - Thẻ độc quyền\n\nMetaverse và tương lai:\n1. Tương tác xã hội: Gặp gỡ, làm việc, giải trí trong không gian ảo\n2. Kinh tế số: Mua bán, đầu tư, kiếm tiền trong metaverse\n3. Giáo dục: Học tập và đào tạo trong môi trường ảo\n4. Thương mại: Mua sắm và trải nghiệm thương hiệu\n\nCác nền tảng metaverse phổ biến:\n1. Decentraland: Thế giới ảo phi tập trung\n2. The Sandbox: Nền tảng game metaverse\n3. Axie Infinity: Game NFT với thế giới mở\n4. Cryptovoxels: Thế giới ảo dựa trên voxel",
+    "keywords": ["nft", "metaverse", "digital art", "virtual land", "collectibles", "blockchain", "gaming", "virtual reality", "digital ownership"],
+    "quiz": [
+      {
+        "question": "NFT là viết tắt của cụm từ nào?",
+        "options": [
+          "New Financial Technology",
+          "Non-Fungible Token",
+          "Network File Transfer",
+          "Next Future Technology"
+        ],
+        "answer": "Non-Fungible Token"
+      },
+      {
+        "question": "Đâu là đặc điểm quan trọng nhất của NFT?",
+        "options": [
+          "Có thể sao chép dễ dàng",
+          "Tính độc nhất và không thể thay thế",
+          "Giá trị thấp",
+          "Dễ dàng tạo mới"
+        ],
+        "answer": "Tính độc nhất và không thể thay thế"
+      },
+      {
+        "question": "Metaverse là gì?",
+        "options": [
+          "Một loại tiền điện tử",
+          "Thế giới ảo nơi người dùng có thể tương tác và sở hữu tài sản số",
+          "Một loại smart contract",
+          "Một loại ví điện tử"
+        ],
+        "answer": "Thế giới ảo nơi người dùng có thể tương tác và sở hữu tài sản số"
+      }
+    ]
   },
   {
     "id": 6,
     "title": "Bảo mật trong Crypto",
-    "content": "Bảo mật là yếu tố quan trọng nhất trong thế giới crypto. Người dùng cần hiểu và áp dụng các biện pháp bảo mật để bảo vệ tài sản của mình.\n\nCác biện pháp bảo mật cơ bản:\n1. Ví lạnh: Lưu trữ offline\n2. Seed phrase: Cụm từ khôi phục\n3. 2FA: Xác thực hai yếu tố\n4. Kiểm tra địa chỉ: Tránh gửi nhầm\n5. Không chia sẻ thông tin: Bảo vệ quyền riêng tư",
-    "keywords": ["security", "cold wallet", "seed phrase", "2fa", "privacy"],
-    "quiz": {
-      "question": "Đâu là biện pháp bảo mật quan trọng nhất cho ví crypto?",
-      "options": [
-        "Mật khẩu mạnh",
-        "Lưu trữ seed phrase an toàn",
-        "Sử dụng 2FA",
-        "Cập nhật phần mềm thường xuyên"
-      ],
-      "answer": "Lưu trữ seed phrase an toàn"
-    }
+    "content": "Bảo mật là yếu tố quan trọng nhất trong thế giới crypto. Người dùng cần hiểu và áp dụng các biện pháp bảo mật để bảo vệ tài sản của mình.\n\nCác loại ví và bảo mật:\n1. Ví nóng (Hot Wallet):\n   - Ví web: Dễ sử dụng nhưng rủi ro cao\n   - Ví di động: Tiện lợi nhưng cần bảo mật thiết bị\n   - Ví desktop: Cân bằng giữa bảo mật và tiện lợi\n2. Ví lạnh (Cold Wallet):\n   - Ví phần cứng: Ledger, Trezor\n   - Ví giấy: Lưu trữ offline\n   - Ví thép: Chống cháy, chống nước\n\nCác biện pháp bảo mật cơ bản:\n1. Seed phrase (Cụm từ khôi phục):\n   - 12-24 từ ngẫu nhiên\n   - Lưu trữ an toàn, không chia sẻ\n   - Sao lưu nhiều bản\n   - Bảo vệ khỏi hỏa hoạn, nước\n2. Xác thực hai yếu tố (2FA):\n   - Google Authenticator\n   - Authy\n   - SMS (ít an toàn hơn)\n3. Kiểm tra địa chỉ:\n   - Sao chép-dán địa chỉ\n   - Kiểm tra kỹ trước khi gửi\n   - Sử dụng địa chỉ whitelist\n4. Bảo mật thiết bị:\n   - Cập nhật phần mềm\n   - Antivirus\n   - Không truy cập link lạ\n   - Không cài đặt phần mềm không rõ nguồn gốc\n\nCác rủi ro phổ biến:\n1. Scam và lừa đảo:\n   - Phishing\n   - Ponzi scheme\n   - Fake ICO\n   - Pump and dump\n2. Lỗ hổng kỹ thuật:\n   - Smart contract bugs\n   - Ví bị hack\n   - Sàn giao dịch bị tấn công\n3. Rủi ro thị trường:\n   - Biến động giá\n   - Thanh khoản\n   - Rug pull\n\nCác biện pháp bảo mật nâng cao:\n1. Đa chữ ký (Multisig):\n   - Yêu cầu nhiều người xác nhận\n   - Tăng tính bảo mật\n   - Phù hợp với tổ chức\n2. Bảo hiểm:\n   - Nexus Mutual\n   - Cover Protocol\n   - Bảo hiểm sàn giao dịch\n3. Phân tán tài sản:\n   - Nhiều ví khác nhau\n   - Nhiều loại tài sản\n   - Nhiều nền tảng",
+    "keywords": ["security", "cold wallet", "seed phrase", "2fa", "privacy", "hardware wallet", "multisig", "scam", "phishing"],
+    "quiz": [
+      {
+        "question": "Đâu là biện pháp bảo mật quan trọng nhất cho ví crypto?",
+        "options": [
+          "Mật khẩu mạnh",
+          "Lưu trữ seed phrase an toàn",
+          "Sử dụng 2FA",
+          "Cập nhật phần mềm thường xuyên"
+        ],
+        "answer": "Lưu trữ seed phrase an toàn"
+      },
+      {
+        "question": "Ví lạnh (Cold Wallet) có ưu điểm gì so với ví nóng?",
+        "options": [
+          "Tốc độ giao dịch nhanh hơn",
+          "Bảo mật cao hơn vì không kết nối internet",
+          "Dễ sử dụng hơn",
+          "Chi phí thấp hơn"
+        ],
+        "answer": "Bảo mật cao hơn vì không kết nối internet"
+      },
+      {
+        "question": "Đâu là hình thức lừa đảo phổ biến nhất trong crypto?",
+        "options": [
+          "Phishing (giả mạo website)",
+          "Hack ví điện tử",
+          "Tấn công mạng",
+          "Giả mạo giao dịch"
+        ],
+        "answer": "Phishing (giả mạo website)"
+      }
+    ]
   },
   {
     "id": 7,
     "title": "Layer 2 và Scaling Solutions",
-    "content": "Layer 2 là các giải pháp mở rộng được xây dựng trên blockchain chính để cải thiện tốc độ và giảm chi phí giao dịch. Các giải pháp phổ biến bao gồm:\n\n1. Rollups: Gộp nhiều giao dịch thành một\n2. Sidechains: Chuỗi phụ song song\n3. State Channels: Kênh giao dịch riêng\n4. Plasma: Chuỗi con với cơ chế rút tiền\n\nMỗi giải pháp có ưu nhược điểm riêng và phù hợp với các use case khác nhau.",
-    "keywords": ["layer 2", "scaling", "rollups", "sidechains", "state channels"],
-    "quiz": {
-      "question": "Mục đích chính của Layer 2 là gì?",
-      "options": [
-        "Tăng tính bảo mật",
-        "Cải thiện tốc độ và giảm chi phí giao dịch",
-        "Tăng tính ẩn danh",
-        "Tạo thêm token mới"
-      ],
-      "answer": "Cải thiện tốc độ và giảm chi phí giao dịch"
-    }
+    "content": "Layer 2 là các giải pháp mở rộng được xây dựng trên blockchain chính để cải thiện tốc độ và giảm chi phí giao dịch. Các giải pháp này giúp giải quyết vấn đề về khả năng mở rộng của blockchain.\n\nCác loại giải pháp Layer 2:\n1. Rollups:\n   - Optimistic Rollups: Giả định giao dịch hợp lệ\n   - ZK Rollups: Sử dụng zero-knowledge proofs\n   - Validium: Kết hợp ZK và off-chain data\n   - Plasma: Chuỗi con với cơ chế rút tiền\n2. Sidechains:\n   - Chuỗi phụ song song\n   - Có cơ chế bảo mật riêng\n   - Kết nối với mainnet\n   - Ví dụ: Polygon, xDai\n3. State Channels:\n   - Kênh giao dịch riêng\n   - Giao dịch off-chain\n   - Chỉ ghi nhận kết quả cuối\n   - Ví dụ: Lightning Network\n4. Plasma:\n   - Chuỗi con với cơ chế rút tiền\n   - Bảo mật bởi mainnet\n   - Giảm tải cho mainnet\n\nƯu điểm của Layer 2:\n1. Tốc độ: Giao dịch nhanh hơn\n2. Chi phí: Phí giao dịch thấp hơn\n3. Khả năng mở rộng: Xử lý nhiều giao dịch hơn\n4. Tương thích: Vẫn kết nối với mainnet\n\nCác dự án Layer 2 phổ biến:\n1. Ethereum:\n   - Optimism\n   - Arbitrum\n   - Polygon\n   - zkSync\n2. Bitcoin:\n   - Lightning Network\n   - Liquid Network\n   - RSK\n\nThách thức và rủi ro:\n1. Bảo mật: Phụ thuộc vào cơ chế bảo mật của giải pháp\n2. Tương thích: Không phải tất cả dApps đều hỗ trợ\n3. Thanh khoản: Có thể bị phân mảnh\n4. Trung gian: Thêm một lớp phức tạp\n\nTương lai của Layer 2:\n1. Tích hợp: Nhiều giải pháp kết hợp\n2. Tối ưu hóa: Cải thiện hiệu suất\n3. Tiêu chuẩn hóa: Quy trình chung\n4. Bảo mật: Cơ chế bảo mật mới",
+    "keywords": ["layer 2", "scaling", "rollups", "sidechains", "state channels", "plasma", "optimistic", "zk", "lightning"],
+    "quiz": [
+      {
+        "question": "Mục đích chính của Layer 2 là gì?",
+        "options": [
+          "Tăng tính bảo mật",
+          "Cải thiện tốc độ và giảm chi phí giao dịch",
+          "Tăng tính ẩn danh",
+          "Tạo thêm token mới"
+        ],
+        "answer": "Cải thiện tốc độ và giảm chi phí giao dịch"
+      },
+      {
+        "question": "Đâu là giải pháp Layer 2 phổ biến nhất cho Bitcoin?",
+        "options": [
+          "Polygon",
+          "Optimism",
+          "Lightning Network",
+          "Arbitrum"
+        ],
+        "answer": "Lightning Network"
+      },
+      {
+        "question": "Rollups là gì?",
+        "options": [
+          "Một loại ví điện tử",
+          "Giải pháp gộp nhiều giao dịch thành một giao dịch duy nhất",
+          "Một loại smart contract",
+          "Một loại token mới"
+        ],
+        "answer": "Giải pháp gộp nhiều giao dịch thành một giao dịch duy nhất"
+      }
+    ]
   },
   {
     "id": 8,
     "title": "Staking và Yield Farming",
-    "content": "Staking là quá trình khóa token để nhận phần thưởng và hỗ trợ hoạt động của mạng lưới. Yield Farming là chiến lược tạo lợi nhuận bằng cách cung cấp thanh khoản cho các giao thức DeFi.\n\nCác hình thức staking:\n1. Validator: Xác thực giao dịch\n2. Delegator: Ủy quyền token\n3. Liquidity Provider: Cung cấp thanh khoản\n4. Yield Farming: Tạo lợi nhuận từ LP tokens",
-    "keywords": ["staking", "yield farming", "liquidity", "rewards", "apy"],
-    "quiz": {
-      "question": "Staking là gì?",
-      "options": [
-        "Mua bán token",
-        "Khóa token để nhận phần thưởng",
-        "Chuyển token giữa các ví",
-        "Tạo token mới"
-      ],
-      "answer": "Khóa token để nhận phần thưởng"
-    }
+    "content": "Staking và Yield Farming là hai phương pháp phổ biến để tạo lợi nhuận từ tài sản crypto. Cả hai đều liên quan đến việc khóa token để nhận phần thưởng, nhưng có những khác biệt quan trọng.\n\nStaking:\n1. Cơ chế hoạt động:\n   - Khóa token để hỗ trợ mạng lưới\n   - Nhận phần thưởng từ phí giao dịch\n   - Tham gia vào quá trình xác thực\n   - Đóng góp vào bảo mật mạng\n2. Các hình thức staking:\n   - Validator: Chạy node xác thực giao dịch\n   - Delegator: Ủy quyền token cho validator\n   - Liquidity Provider: Cung cấp thanh khoản\n   - Yield Farming: Tạo lợi nhuận từ LP tokens\n3. Lợi ích:\n   - Thu nhập thụ động\n   - Hỗ trợ mạng lưới\n   - Giảm nguồn cung lưu hành\n   - Tham gia quản trị\n\nYield Farming:\n1. Cơ chế hoạt động:\n   - Cung cấp thanh khoản cho các giao thức DeFi\n   - Nhận token thưởng từ giao thức\n   - Tái đầu tư để tối đa lợi nhuận\n   - Quản lý rủi ro thanh khoản\n2. Các chiến lược:\n   - Single-sided: Cung cấp một loại token\n   - LP Farming: Cung cấp cặp token\n   - Auto-compounding: Tự động tái đầu tư\n   - Cross-chain: Đa chuỗi\n3. Rủi ro:\n   - Impermanent Loss\n   - Smart Contract Risk\n   - Token Value Risk\n   - Gas Fees\n\nCác nền tảng phổ biến:\n1. Staking:\n   - Ethereum 2.0\n   - Polkadot\n   - Cosmos\n   - Cardano\n2. Yield Farming:\n   - Aave\n   - Compound\n   - Curve\n   - Yearn Finance\n\nChiến lược tối ưu:\n1. Đa dạng hóa:\n   - Nhiều giao thức\n   - Nhiều loại token\n   - Nhiều chuỗi\n2. Quản lý rủi ro:\n   - Phân bổ vốn\n   - Theo dõi APY\n   - Kiểm tra bảo mật\n   - Đa dạng hóa\n3. Tối ưu hóa:\n   - Tự động hóa\n   - Tái đầu tư\n   - Quản lý gas\n   - Theo dõi hiệu suất",
+    "keywords": ["staking", "yield farming", "liquidity", "rewards", "apy", "defi", "validator", "delegator", "liquidity provider"],
+    "quiz": [
+      {
+        "question": "Staking là gì?",
+        "options": [
+          "Mua bán token",
+          "Khóa token để nhận phần thưởng",
+          "Chuyển token giữa các ví",
+          "Tạo token mới"
+        ],
+        "answer": "Khóa token để nhận phần thưởng"
+      },
+      {
+        "question": "Đâu là rủi ro chính của Yield Farming?",
+        "options": [
+          "Impermanent Loss",
+          "Mất token do hack",
+          "Phí gas cao",
+          "Token giảm giá"
+        ],
+        "answer": "Impermanent Loss"
+      },
+      {
+        "question": "Validator trong staking là gì?",
+        "options": [
+          "Người chạy node xác thực giao dịch",
+          "Người cho vay token",
+          "Người mua token",
+          "Người phát triển smart contract"
+        ],
+        "answer": "Người chạy node xác thực giao dịch"
+      }
+    ]
   },
   {
     "id": 9,
     "title": "DAO và Quản trị phi tập trung",
-    "content": "DAO (Decentralized Autonomous Organization) là tổ chức tự trị phi tập trung, được quản lý bởi các thành viên thông qua smart contracts. Các quyết định được đưa ra dựa trên số token nắm giữ.\n\nĐặc điểm của DAO:\n1. Phi tập trung: Không có lãnh đạo trung tâm\n2. Minh bạch: Mọi quyết định đều công khai\n3. Tự động: Thực thi qua smart contracts\n4. Dân chủ: Quyền biểu quyết dựa trên token",
-    "keywords": ["dao", "governance", "voting", "proposal", "decentralization"],
-    "quiz": {
-      "question": "DAO là viết tắt của cụm từ nào?",
-      "options": [
-        "Digital Asset Organization",
-        "Decentralized Autonomous Organization",
-        "Distributed Application Organization",
-        "Digital Autonomous Organization"
-      ],
-      "answer": "Decentralized Autonomous Organization"
-    }
+    "content": "DAO (Decentralized Autonomous Organization) là tổ chức tự trị phi tập trung, được quản lý bởi các thành viên thông qua smart contracts. Các quyết định được đưa ra dựa trên số token nắm giữ.\n\nĐặc điểm của DAO:\n1. Phi tập trung:\n   - Không có lãnh đạo trung tâm\n   - Quyết định tập thể\n   - Minh bạch trong hoạt động\n   - Tự động hóa qua smart contracts\n2. Minh bạch:\n   - Mọi quyết định đều công khai\n   - Mã nguồn mở\n   - Tài chính minh bạch\n   - Lịch sử hoạt động rõ ràng\n3. Tự động:\n   - Thực thi qua smart contracts\n   - Không cần can thiệp thủ công\n   - Quy tắc rõ ràng\n   - Giảm thiểu lỗi\n4. Dân chủ:\n   - Quyền biểu quyết dựa trên token\n   - Mỗi token = một phiếu bầu\n   - Đề xuất và thảo luận công khai\n   - Quy trình bỏ phiếu minh bạch\n\nCác loại DAO:\n1. Protocol DAO:\n   - Quản lý giao thức DeFi\n   - Điều chỉnh tham số\n   - Phân phối ngân quỹ\n   - Phát triển sản phẩm\n2. Investment DAO:\n   - Đầu tư tập thể\n   - Quản lý danh mục\n   - Phân phối lợi nhuận\n   - Due diligence\n3. Social DAO:\n   - Cộng đồng người dùng\n   - Quản lý nội dung\n   - Tổ chức sự kiện\n   - Xây dựng cộng đồng\n4. Collector DAO:\n   - Sưu tầm NFT\n   - Quản lý bộ sưu tập\n   - Đầu tư nghệ thuật\n   - Triển lãm số\n\nQuy trình quản trị:\n1. Đề xuất:\n   - Tạo proposal\n   - Thảo luận cộng đồng\n   - Chỉnh sửa và cập nhật\n   - Đạt ngưỡng đề xuất\n2. Bỏ phiếu:\n   - Thời gian bỏ phiếu\n   - Quy tắc đa số\n   - Trọng số phiếu bầu\n   - Kết quả minh bạch\n3. Thực thi:\n   - Tự động qua smart contract\n   - Theo dõi tiến độ\n   - Báo cáo kết quả\n   - Đánh giá hiệu quả\n\nThách thức và giải pháp:\n1. Tham gia:\n   - Khuyến khích tham gia\n   - Giáo dục thành viên\n   - Đơn giản hóa quy trình\n   - Phần thưởng xứng đáng\n2. Bảo mật:\n   - Kiểm toán smart contract\n   - Đa chữ ký\n   - Giới hạn quyền lực\n   - Cơ chế khẩn cấp\n3. Hiệu quả:\n   - Tối ưu quy trình\n   - Tự động hóa\n   - Phân quyền rõ ràng\n   - Đo lường kết quả",
+    "keywords": ["dao", "governance", "voting", "proposal", "decentralization", "autonomous", "smart contract", "democracy", "transparency"],
+    "quiz": [
+      {
+        "question": "DAO là viết tắt của cụm từ nào?",
+        "options": [
+          "Digital Asset Organization",
+          "Decentralized Autonomous Organization",
+          "Distributed Application Organization",
+          "Digital Autonomous Organization"
+        ],
+        "answer": "Decentralized Autonomous Organization"
+      },
+      {
+        "question": "Quyền biểu quyết trong DAO được xác định bởi yếu tố nào?",
+        "options": [
+          "Số năm tham gia",
+          "Số token nắm giữ",
+          "Địa vị trong tổ chức",
+          "Kinh nghiệm chuyên môn"
+        ],
+        "answer": "Số token nắm giữ"
+      },
+      {
+        "question": "Đâu là đặc điểm quan trọng nhất của DAO?",
+        "options": [
+          "Tốc độ ra quyết định nhanh",
+          "Tính phi tập trung và minh bạch",
+          "Chi phí vận hành thấp",
+          "Dễ dàng thay đổi quy tắc"
+        ],
+        "answer": "Tính phi tập trung và minh bạch"
+      }
+    ]
   },
   {
     "id": 10,
     "title": "Cross-chain và Interoperability",
-    "content": "Cross-chain là khả năng tương tác và trao đổi thông tin giữa các blockchain khác nhau. Interoperability là yếu tố quan trọng để tạo ra một hệ sinh thái crypto thống nhất.\n\nCác giải pháp cross-chain:\n1. Bridges: Cầu nối giữa các blockchain\n2. Atomic Swaps: Hoán đổi token trực tiếp\n3. Wrapped Tokens: Token đại diện trên chain khác\n4. Cross-chain Messaging: Truyền thông điệp giữa các chain",
-    "keywords": ["cross-chain", "interoperability", "bridges", "atomic swaps", "wrapped tokens"],
-    "quiz": {
-      "question": "Mục đích của cross-chain là gì?",
-      "options": [
-        "Tăng tốc độ giao dịch",
-        "Cho phép tương tác giữa các blockchain",
-        "Tăng tính bảo mật",
-        "Tạo thêm token mới"
-      ],
-      "answer": "Cho phép tương tác giữa các blockchain"
-    }
+    "content": "Cross-chain và Interoperability là các khái niệm quan trọng trong việc kết nối các blockchain khác nhau, cho phép tương tác và trao đổi thông tin giữa các mạng lưới.\n\nKhái niệm cơ bản:\n1. Cross-chain:\n   - Kết nối giữa các blockchain\n   - Chuyển tài sản giữa các chuỗi\n   - Tương tác đa chuỗi\n   - Tích hợp dịch vụ\n2. Interoperability:\n   - Khả năng tương tác\n   - Trao đổi thông tin\n   - Chia sẻ dữ liệu\n   - Hợp tác giữa các chuỗi\n\nCác giải pháp cross-chain:\n1. Bridges (Cầu nối):\n   - Kết nối hai blockchain\n   - Chuyển đổi token\n   - Đồng bộ dữ liệu\n   - Bảo mật giao dịch\n2. Atomic Swaps:\n   - Hoán đổi token trực tiếp\n   - Không cần trung gian\n   - An toàn và nhanh chóng\n   - Hỗ trợ nhiều chuỗi\n3. Wrapped Tokens:\n   - Token đại diện trên chain khác\n   - Giá trị 1:1\n   - Thanh khoản tốt\n   - Dễ tích hợp\n4. Cross-chain Messaging:\n   - Truyền thông điệp giữa các chain\n   - Gọi smart contract\n   - Đồng bộ trạng thái\n   - Tương tác đa chuỗi\n\nCác dự án tiêu biểu:\n1. Polkadot:\n   - Parachains\n   - Relay Chain\n   - Cross-chain messaging\n   - Shared security\n2. Cosmos:\n   - IBC Protocol\n   - Hub and Zones\n   - Inter-blockchain Communication\n   - Sovereign chains\n3. Chainlink:\n   - Oracle network\n   - Cross-chain data\n   - Price feeds\n   - Randomness\n4. THORChain:\n   - Cross-chain DEX\n   - Native asset swaps\n   - Liquidity pools\n   - Decentralized\n\nLợi ích:\n1. Thanh khoản:\n   - Tăng thanh khoản tổng thể\n   - Giảm slippage\n   - Đa dạng hóa tài sản\n   - Tối ưu chi phí\n2. Tương tác:\n   - Kết hợp các tính năng\n   - Tích hợp dịch vụ\n   - Chia sẻ dữ liệu\n   - Hợp tác đa chuỗi\n3. Bảo mật:\n   - Phân tán rủi ro\n   - Đa dạng hóa bảo mật\n   - Cơ chế xác thực\n   - Bảo vệ tài sản\n\nThách thức và giải pháp:\n1. Bảo mật:\n   - Kiểm toán kỹ lưỡng\n   - Cơ chế bảo vệ\n   - Giới hạn rủi ro\n   - Theo dõi liên tục\n2. Hiệu suất:\n   - Tối ưu hóa tốc độ\n   - Giảm chi phí\n   - Cải thiện trải nghiệm\n   - Đo lường hiệu quả\n3. Tương thích:\n   - Tiêu chuẩn chung\n   - Tích hợp dễ dàng\n   - Hỗ trợ đa chuỗi\n   - Tài liệu đầy đủ",
+    "keywords": ["cross-chain", "interoperability", "bridges", "atomic swaps", "wrapped tokens", "blockchain", "polkadot", "cosmos", "chainlink"],
+    "quiz": [
+      {
+        "question": "Mục đích của cross-chain là gì?",
+        "options": [
+          "Tăng tốc độ giao dịch",
+          "Cho phép tương tác giữa các blockchain",
+          "Tăng tính bảo mật",
+          "Tạo thêm token mới"
+        ],
+        "answer": "Cho phép tương tác giữa các blockchain"
+      },
+      {
+        "question": "Đâu là giải pháp cross-chain phổ biến nhất?",
+        "options": [
+          "Bridges (Cầu nối)",
+          "Atomic Swaps",
+          "Wrapped Tokens",
+          "Cross-chain Messaging"
+        ],
+        "answer": "Bridges (Cầu nối)"
+      },
+      {
+        "question": "Wrapped Token là gì?",
+        "options": [
+          "Token mới được phát hành",
+          "Token đại diện trên chain khác với giá trị 1:1",
+          "Token có giá trị thay đổi",
+          "Token chỉ dùng trong một ứng dụng"
+        ],
+        "answer": "Token đại diện trên chain khác với giá trị 1:1"
+      }
+    ]
   }
 ] 

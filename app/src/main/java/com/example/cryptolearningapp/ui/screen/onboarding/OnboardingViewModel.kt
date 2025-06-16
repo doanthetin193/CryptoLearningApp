@@ -24,13 +24,13 @@ class OnboardingViewModel @Inject constructor(
 
     fun saveUserProfile(profile: UserProfile) {
         viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                userProfileRepository.saveUserProfile(profile)
-                // Reset tiến độ học tập khi lưu thông tin người dùng mới
+        _isLoading.value = true
+        try {
+            userProfileRepository.saveUserProfile(profile)
+            // Reset tiến độ học tập khi lưu thông tin người dùng mới
                 cryptoRepository.resetProgress(userId)
-            } finally {
-                _isLoading.value = false
+        } finally {
+            _isLoading.value = false
             }
         }
     }

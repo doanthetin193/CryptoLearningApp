@@ -56,45 +56,95 @@ fun QuizScreen(
                         CircularProgressIndicator()
                     }
                 }
+                is QuizState.Error -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("Có lỗi xảy ra khi tải quiz")
+                    }
+                }
+                is QuizState.Completed -> {
+                    val completedState = quizState as QuizState.Completed
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                if (completedState.isLessonCompleted) 
+                                    "Chúc mừng! Bạn đã hoàn thành bài học"
+                                else 
+                                    "Bạn đã hoàn thành quiz",
+                                style = MaterialTheme.typography.headlineMedium,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(16.dp)
+                            )
+                            Text(
+                                "Số câu trả lời đúng: ${completedState.correctAnswers}/3",
+                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier.padding(8.dp)
+                            )
+                            Text(
+                                "Điểm nhận được: ${completedState.finalScore}",
+                                style = MaterialTheme.typography.titleLarge,
+                                modifier = Modifier.padding(8.dp)
+                            )
+                            if (!completedState.isLessonCompleted) {
+                                Text(
+                                    "Bạn cần trả lời đúng ít nhất 3 câu để hoàn thành bài học",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.error,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                            }
+                            Button(
+                                onClick = onFinishQuiz,
+                                modifier = Modifier.padding(16.dp)
+                            ) {
+                                Text("Quay lại bài học")
+                            }
+                        }
+                    }
+                }
                 is QuizState.Success -> {
                     val state = quizState as QuizState.Success
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .padding(16.dp)
                     ) {
-                        // Question Card
-                        Card(
+                        // Progress bar
+                        LinearProgressIndicator(
+                            progress = viewModel.getProgress(),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 24.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                Text(
-                                    text = "Câu hỏi",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = state.quiz.question,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                        }
+                                .padding(bottom = 16.dp)
+                        )
 
-                        // Answer Options
-                        state.quiz.options.forEach { option ->
+                        // Question number
+                        Text(
+                            "Câu hỏi ${state.currentQuestionIndex + 1}/${state.questions.size}",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+
+                        // Question
+                        Text(
+                            state.questions[state.currentQuestionIndex].question,
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+
+                        // Options
+                        state.questions[state.currentQuestionIndex].options.forEach { option ->
                             val isSelected = option == state.selectedAnswer
-                            val isCorrect = state.isAnswerSubmitted && option == state.quiz.answer
-                            val isWrong = state.isAnswerSubmitted && isSelected && option != state.quiz.answer
+                            val isCorrect = state.isAnswerSubmitted && option == state.questions[state.currentQuestionIndex].answer
+                            val isWrong = state.isAnswerSubmitted && isSelected && option != state.questions[state.currentQuestionIndex].answer
 
                             Card(
                                 modifier = Modifier
@@ -117,23 +167,22 @@ fun QuizScreen(
                             ) {
                                 Row(
                                     modifier = Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = option,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = when {
-                                            isCorrect || isWrong -> Color.White
-                                            else -> MaterialTheme.colorScheme.onSurfaceVariant
-                                        }
+                                        option,
+                                        modifier = Modifier.weight(1f)
                                     )
                                     if (state.isAnswerSubmitted) {
                                         Icon(
-                                            imageVector = if (isCorrect) Icons.Default.Check else Icons.Default.Close,
-                                            contentDescription = if (isCorrect) "Correct" else "Wrong",
+                                            imageVector = when {
+                                                isCorrect -> Icons.Default.Check
+                                                isWrong -> Icons.Default.Close
+                                                else -> Icons.Default.Check
+                                            },
+                                            contentDescription = null,
                                             tint = Color.White
                                         )
                                     }
@@ -143,89 +192,21 @@ fun QuizScreen(
 
                         Spacer(modifier = Modifier.weight(1f))
 
-                        // Result and Score Change
-                        AnimatedVisibility(
-                            visible = state.isAnswerSubmitted,
-                            enter = fadeIn() + expandVertically(),
-                            exit = fadeOut() + shrinkVertically()
-                        ) {
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 16.dp),
-                                colors = CardDefaults.cardColors(
-                                    containerColor = if (state.isCorrect) 
-                                        Color(0xFF4CAF50).copy(alpha = 0.1f)
-                                    else 
-                                        Color(0xFFE57373).copy(alpha = 0.1f)
-                                )
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Text(
-                                        text = if (state.isCorrect) "Chính xác!" else "Chưa chính xác",
-                                        style = MaterialTheme.typography.titleLarge,
-                                        color = if (state.isCorrect) 
-                                            Color(0xFF4CAF50)
-                                        else 
-                                            Color(0xFFE57373)
-                                    )
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                    Text(
-                                        text = if (state.scoreChange > 0) 
-                                            "+${state.scoreChange} điểm"
-                                        else 
-                                            "${state.scoreChange} điểm",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        color = if (state.scoreChange > 0) 
-                                            Color(0xFF4CAF50)
-                                        else 
-                                            Color(0xFFE57373)
-                                    )
-                                }
-                            }
-                        }
-
-                        // Action Button
+                        // Submit/Next button
                         Button(
                             onClick = {
                                 if (state.isAnswerSubmitted) {
-                                    onFinishQuiz()
+                                    viewModel.nextQuestion()
                                 } else {
                                     viewModel.submitAnswer()
                                 }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(56.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (state.isAnswerSubmitted)
-                                    MaterialTheme.colorScheme.primary
-                                else
-                                    MaterialTheme.colorScheme.secondary
-                            )
+                                .padding(vertical = 16.dp)
                         ) {
-                            Text(
-                                text = if (state.isAnswerSubmitted) "Tiếp tục" else "Kiểm tra",
-                                style = MaterialTheme.typography.titleMedium
-                            )
+                            Text(if (state.isAnswerSubmitted) "Câu tiếp theo" else "Kiểm tra")
                         }
-                    }
-                }
-                is QuizState.Error -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Có lỗi xảy ra",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.error
-                        )
                     }
                 }
             }

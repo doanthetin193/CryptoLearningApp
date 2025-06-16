@@ -37,21 +37,21 @@ fun ProfileScreen(
     val userProfile by viewModel.userProfile.collectAsState()
     val userProgress by viewModel.userProgress.collectAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
+        Scaffold(
+            topBar = {
+                TopAppBar(
                 title = { Text("Hồ sơ") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    navigationIcon = {
+                        IconButton(onClick = onBackClick) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
-                        )
-                    }
+                            )
+                        }
                 }
-            )
-        }
-    ) { paddingValues ->
+                )
+            }
+        ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -62,32 +62,32 @@ fun ProfileScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
             } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Profile Header
+            ) {
+                // Profile Header
                     userProfile?.let { profile ->
                         ProfileHeader(profile)
                     }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
+                
+                Spacer(modifier = Modifier.height(24.dp))
+                
                     // Progress Stats
                     userProgress?.let { progress ->
                         ProfileStats(progress)
                     }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    // Profile Actions
-                    ProfileActions(
-                        onEditProfileClick = onEditProfileClick,
-                        onResetProgress = { viewModel.resetProgress() }
-                    )
+                
+                Spacer(modifier = Modifier.height(24.dp))
+                
+                // Profile Actions
+                ProfileActions(
+                    onEditProfileClick = onEditProfileClick,
+                    onResetProgress = { viewModel.resetProgress() }
+                )
                 }
             }
 
@@ -114,7 +114,7 @@ private fun ProfileSection(profile: UserProfile) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-        ) {
+                ) {
             Text(
                 text = "Profile",
                 style = MaterialTheme.typography.titleLarge

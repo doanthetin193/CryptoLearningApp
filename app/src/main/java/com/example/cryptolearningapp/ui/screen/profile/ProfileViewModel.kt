@@ -40,14 +40,14 @@ class ProfileViewModel @Inject constructor(
                 combine(
                     userProfile,
                     userProgress
-                ) { profile, progress ->
+    ) { profile, progress ->
                     // Both flows will emit their values
                     _isLoading.value = false
                 }.collect()
             } catch (e: Exception) {
                 _error.value = e.message
                 _isLoading.value = false
-            }
+        }
         }
     }
 

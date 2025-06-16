@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             val isOnboardingCompleted by viewModel.isOnboardingCompleted.collectAsState()
             val navController = rememberNavController()
             var isDarkMode by remember { mutableStateOf(false) }
-
+            
             CryptoLearningAppTheme(darkTheme = isDarkMode) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

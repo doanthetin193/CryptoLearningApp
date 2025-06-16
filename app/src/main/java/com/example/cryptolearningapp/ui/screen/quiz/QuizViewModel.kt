@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.Lesson
-import com.example.cryptolearningapp.data.model.Quiz
+import com.example.cryptolearningapp.data.model.QuizQuestion
 import com.example.cryptolearningapp.data.repository.CryptoRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -19,11 +19,18 @@ import javax.inject.Inject
 sealed class QuizState {
     object Loading : QuizState()
     data class Success(
-        val quiz: Quiz,
+        val questions: List<QuizQuestion>,
+        val currentQuestionIndex: Int = 0,
         val selectedAnswer: String? = null,
         val isAnswerSubmitted: Boolean = false,
         val isCorrect: Boolean = false,
-        val scoreChange: Int = 0
+        val correctAnswers: Int = 0,
+        val finalScore: Int = 0
+    ) : QuizState()
+    data class Completed(
+        val correctAnswers: Int,
+        val finalScore: Int,
+        val isLessonCompleted: Boolean
     ) : QuizState()
     object Error : QuizState()
 }
@@ -41,16 +48,15 @@ class QuizViewModel @Inject constructor(
     val error: StateFlow<String?> = _error
 
     private var currentLessonId: Int? = null
-    private var hasUpdatedScore = false
 
     companion object {
         const val CORRECT_ANSWER_POINTS = 10
-        const val WRONG_ANSWER_PENALTY = -2
+        const val PARTIAL_CORRECT_POINTS = 6
+        const val MIN_CORRECT_ANSWERS_FOR_COMPLETION = 3
     }
 
     fun loadQuiz(lessonId: Int) {
         currentLessonId = lessonId
-        hasUpdatedScore = false
         viewModelScope.launch {
             try {
                 val jsonString = context.assets.open("lessons.json").bufferedReader().use { it.readText() }
@@ -79,51 +85,92 @@ class QuizViewModel @Inject constructor(
 
     fun submitAnswer() {
         val currentState = _quizState.value
-        if (currentState is QuizState.Success && !currentState.isAnswerSubmitted && !hasUpdatedScore) {
-            // Check if user has selected an answer
-            if (currentState.selectedAnswer == null) {
-                _error.value = "Vui lòng chọn một đáp án"
-                return
-            }
+        if (currentState is QuizState.Success && !currentState.isAnswerSubmitted) {
+            val isCorrect = currentState.selectedAnswer == currentState.questions[currentState.currentQuestionIndex].answer
+            val newCorrectAnswers = if (isCorrect) currentState.correctAnswers + 1 else currentState.correctAnswers
 
-            val isCorrect = currentState.selectedAnswer == currentState.quiz.answer
-            val scoreChange = if (isCorrect) CORRECT_ANSWER_POINTS else WRONG_ANSWER_PENALTY
-            
             _quizState.value = currentState.copy(
                 isAnswerSubmitted = true,
                 isCorrect = isCorrect,
-                scoreChange = scoreChange
+                correctAnswers = newCorrectAnswers
             )
+        }
+    }
 
-            viewModelScope.launch {
-                try {
-                    currentLessonId?.let { lessonId ->
-                        // Get the current progress first
-                        val currentProgress = repository.getUserProgress("user1").first()
-                        currentProgress?.let { progress ->
-                            // Only update score if the lesson is not completed yet
-                            if (!progress.completedLessons.contains(lessonId)) {
-                                val newCompletedLessons = if (isCorrect) {
+    fun nextQuestion() {
+        val currentState = _quizState.value
+        if (currentState is QuizState.Success) {
+            if (currentState.currentQuestionIndex < currentState.questions.size - 1) {
+                _quizState.value = currentState.copy(
+                    currentQuestionIndex = currentState.currentQuestionIndex + 1,
+                    selectedAnswer = null,
+                    isAnswerSubmitted = false,
+                    isCorrect = false
+                )
+            } else {
+                // Calculate final score
+                val finalScore = when {
+                    currentState.correctAnswers >= MIN_CORRECT_ANSWERS_FOR_COMPLETION -> CORRECT_ANSWER_POINTS
+                    currentState.correctAnswers > 0 -> PARTIAL_CORRECT_POINTS
+                    else -> 0
+                }
+                val isLessonCompleted = currentState.correctAnswers >= MIN_CORRECT_ANSWERS_FOR_COMPLETION
+
+                // Update progress in repository
+                updateProgress(finalScore, isLessonCompleted)
+
+                // Update state to completed
+                _quizState.value = QuizState.Completed(
+                    correctAnswers = currentState.correctAnswers,
+                    finalScore = finalScore,
+                    isLessonCompleted = isLessonCompleted
+                )
+            }
+        }
+    }
+
+    private fun updateProgress(finalScore: Int, isLessonCompleted: Boolean) {
+        viewModelScope.launch {
+            try {
+                currentLessonId?.let { lessonId ->
+                    val currentProgress = repository.getUserProgress("user1").first()
+                    currentProgress?.let { progress ->
+                        // Kiểm tra xem bài học đã hoàn thành chưa
+                        val isAlreadyCompleted = progress.completedLessons.contains(lessonId)
+                        
+                        // Chỉ cập nhật điểm và trạng thái nếu bài học chưa hoàn thành
+                        if (!isAlreadyCompleted) {
+                            repository.updateProgress(
+                                userId = "user1",
+                                completedLessons = if (isLessonCompleted) {
+                                    // Chỉ thêm vào completedLessons nếu đã trả lời đúng 3 câu
                                     progress.completedLessons + lessonId
                                 } else {
                                     progress.completedLessons
-                                }
-                                
-                                val newScore = progress.totalScore + scoreChange
-                                
-                                repository.updateProgress(
-                                    userId = "user1",
-                                    completedLessons = newCompletedLessons,
-                                    totalScore = newScore
-                                )
-                                hasUpdatedScore = true
-                            }
+                                },
+                                totalScore = progress.totalScore + finalScore
+                            )
                         }
+                        // Nếu bài học đã hoàn thành, không cập nhật gì cả, chỉ hiển thị điểm
                     }
-                } catch (e: Exception) {
-                    _error.value = "Không thể cập nhật tiến độ: ${e.message}"
                 }
+            } catch (e: Exception) {
+                _error.value = "Không thể cập nhật tiến độ: ${e.message}"
             }
         }
+    }
+
+    fun getCurrentQuestion(): QuizQuestion? {
+        val currentState = _quizState.value
+        return if (currentState is QuizState.Success) {
+            currentState.questions[currentState.currentQuestionIndex]
+        } else null
+    }
+
+    fun getProgress(): Float {
+        val currentState = _quizState.value
+        return if (currentState is QuizState.Success) {
+            (currentState.currentQuestionIndex + 1).toFloat() / currentState.questions.size
+        } else 0f
     }
 } 

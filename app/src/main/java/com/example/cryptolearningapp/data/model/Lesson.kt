@@ -5,10 +5,10 @@ data class Lesson(
     val title: String,
     val content: String,
     val keywords: List<String>,
-    val quiz: Quiz
+    val quiz: List<QuizQuestion>
 )
 
-data class Quiz(
+data class QuizQuestion(
     val question: String,
     val options: List<String>,
     val answer: String
