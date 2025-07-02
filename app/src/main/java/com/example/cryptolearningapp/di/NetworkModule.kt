@@ -30,11 +30,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://openapiv1.coinstats.app/")
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
     }
 
@@ -43,4 +49,4 @@ object NetworkModule {
     fun provideCryptoNewsApi(retrofit: Retrofit): CryptoNewsApi {
         return retrofit.create(CryptoNewsApi::class.java)
     }
-} 
+}

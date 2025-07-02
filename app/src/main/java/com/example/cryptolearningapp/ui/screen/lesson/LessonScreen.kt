@@ -101,7 +101,13 @@ fun LessonScreen(
     }
 
     if (showChatDialog) {
-        ChatDialog(
+        lesson?.let { currentLesson ->
+            ChatDialog(
+                onDismiss = { showChatDialog = false },
+                lessonId = currentLesson.id,
+                lessonTitle = currentLesson.title
+            )
+        } ?: ChatDialog(
             onDismiss = { showChatDialog = false }
         )
     }

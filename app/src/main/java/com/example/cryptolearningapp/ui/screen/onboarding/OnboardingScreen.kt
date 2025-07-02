@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cryptolearningapp.data.model.Gender
 import com.example.cryptolearningapp.data.model.UserProfile
 import kotlinx.coroutines.launch
-import java.time.Year
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +35,7 @@ fun OnboardingScreen(
     var errorMessage by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
 
-    val currentYear = Year.now().value
+    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
 
     Scaffold(
         topBar = {

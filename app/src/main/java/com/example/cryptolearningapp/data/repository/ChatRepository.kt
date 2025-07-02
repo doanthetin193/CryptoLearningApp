@@ -1,5 +1,6 @@
 package com.example.cryptolearningapp.data.repository
 
+import com.example.cryptolearningapp.BuildConfig
 import com.example.cryptolearningapp.data.api.GeminiApi
 import com.example.cryptolearningapp.data.model.Content
 import com.example.cryptolearningapp.data.model.GeminiRequest
@@ -24,7 +25,14 @@ class ChatRepository @Inject constructor(
             )
 
             val request = GeminiRequest(contents = contents)
-            val response = api.generateContent("AIzaSyDbrQFONxMSK0hJ7a2gTuF4xC6vaUHnuLc", request)
+            // API key được load từ BuildConfig (local.properties)
+            val apiKey = BuildConfig.GEMINI_API_KEY
+            
+            if (apiKey.isEmpty()) {
+                return Result.failure(RuntimeException("Gemini API key không được cấu hình. Vui lòng thêm GEMINI_API_KEY vào local.properties"))
+            }
+            
+            val response = api.generateContent(apiKey, request)
 
             if (response.isSuccessful) {
                 response.body()?.let {
