@@ -3,7 +3,7 @@ package com.example.cryptolearningapp.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.repository.ChatRepository
-import com.example.cryptolearningapp.data.repository.CryptoRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatRepository: ChatRepository,
-    private val cryptoRepository: CryptoRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ChatUiState>(ChatUiState.Initial)
@@ -27,7 +27,7 @@ class ChatViewModel @Inject constructor(
 
     private fun checkUserScore() {
         viewModelScope.launch {
-            cryptoRepository.getUserProgress("user1")
+            userRepository.userProgress
                 .collect { progress ->
                     _canUseChat.value = progress?.totalScore ?: 0 >= 50
                 }

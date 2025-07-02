@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.Lesson
 import com.example.cryptolearningapp.data.model.UserProgress
-import com.example.cryptolearningapp.data.repository.CryptoRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,14 +16,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: CryptoRepository,
+    private val repository: UserRepository,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _lessons = MutableStateFlow<List<Lesson>>(emptyList())
     val lessons: StateFlow<List<Lesson>> = _lessons
 
-    val userProgress: StateFlow<UserProgress?> = repository.getUserProgress("user1")
+    val userProgress: StateFlow<UserProgress?> = repository.userProgress
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
                     completedLessons.add(lessonId)
                 }
                 val totalScore = (currentProgress?.totalScore ?: 0) + score
-                repository.updateProgress("user1", completedLessons, totalScore)
+                repository.updateProgress(completedLessons, totalScore)
             } catch (e: Exception) {
                 _error.value = "Không thể cập nhật tiến độ: ${e.message}"
                 }

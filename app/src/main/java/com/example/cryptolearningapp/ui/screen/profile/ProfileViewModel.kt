@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.UserProfile
 import com.example.cryptolearningapp.data.model.UserProgress
-import com.example.cryptolearningapp.data.repository.CryptoRepository
-import com.example.cryptolearningapp.data.repository.UserProfileRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,8 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val userProfileRepository: UserProfileRepository,
-    private val cryptoRepository: CryptoRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -23,10 +21,8 @@ class ProfileViewModel @Inject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    private val userId = "user1"
-
-    val userProfile: StateFlow<UserProfile?> = userProfileRepository.userProfile
-    val userProgress: StateFlow<UserProgress?> = cryptoRepository.getUserProgress(userId)
+    val userProfile: StateFlow<UserProfile?> = userRepository.userProfile
+    val userProgress: StateFlow<UserProgress?> = userRepository.userProgress
 
     init {
         loadUserData()
@@ -36,25 +32,19 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                // Load user profile and progress
-                combine(
-                    userProfile,
-                    userProgress
-    ) { profile, progress ->
-                    // Both flows will emit their values
-                    _isLoading.value = false
-                }.collect()
+                // Data is automatically loaded by UserRepository
+                _isLoading.value = false
             } catch (e: Exception) {
                 _error.value = e.message
                 _isLoading.value = false
-        }
+            }
         }
     }
 
     fun updateProgress(completedLessons: List<Int>, totalScore: Int) {
         viewModelScope.launch {
             try {
-                cryptoRepository.updateProgress(userId, completedLessons, totalScore)
+                userRepository.updateProgress(completedLessons, totalScore)
             } catch (e: Exception) {
                 _error.value = e.message
             }
@@ -64,7 +54,7 @@ class ProfileViewModel @Inject constructor(
     fun resetProgress() {
         viewModelScope.launch {
             try {
-                cryptoRepository.resetProgress(userId)
+                userRepository.resetProgress()
             } catch (e: Exception) {
                 _error.value = e.message
             }

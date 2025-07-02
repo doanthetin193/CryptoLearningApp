@@ -1,6 +1,5 @@
 package com.example.cryptolearningapp.data.repository
 
-import com.example.cryptolearningapp.data.api.ApiClient
 import com.example.cryptolearningapp.data.api.GeminiApi
 import com.example.cryptolearningapp.data.model.Content
 import com.example.cryptolearningapp.data.model.GeminiRequest
@@ -25,7 +24,7 @@ class ChatRepository @Inject constructor(
             )
 
             val request = GeminiRequest(contents = contents)
-            val response = api.generateContent(ApiClient.API_KEY, request)
+            val response = api.generateContent("AIzaSyDbrQFONxMSK0hJ7a2gTuF4xC6vaUHnuLc", request)
 
             if (response.isSuccessful) {
                 response.body()?.let {

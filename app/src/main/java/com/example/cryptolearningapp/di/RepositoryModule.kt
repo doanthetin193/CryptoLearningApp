@@ -1,8 +1,7 @@
 package com.example.cryptolearningapp.di
 
 import android.content.Context
-import com.example.cryptolearningapp.data.repository.UserProfileRepository
-import com.example.cryptolearningapp.data.repository.UserProgressRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,17 +15,9 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUserProfileRepository(
+    fun provideUserRepository(
         @ApplicationContext context: Context
-    ): UserProfileRepository {
-        return UserProfileRepository(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserProgressRepository(
-        @ApplicationContext context: Context
-    ): UserProgressRepository {
-        return UserProgressRepository(context)
+    ): UserRepository {
+        return UserRepository(context)
     }
 } 

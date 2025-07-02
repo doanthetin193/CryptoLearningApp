@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.Lesson
-import com.example.cryptolearningapp.data.repository.CryptoRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LessonViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val repository: CryptoRepository
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _lesson = MutableStateFlow<Lesson?>(null)

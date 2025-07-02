@@ -3,7 +3,7 @@ package com.example.cryptolearningapp.ui.screen.editprofile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.UserProfile
-import com.example.cryptolearningapp.data.repository.UserProfileRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val userProfileRepository: UserProfileRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -23,7 +23,7 @@ class EditProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            userProfileRepository.userProfile.collect { profile ->
+            userRepository.userProfile.collect { profile ->
                 _currentProfile.value = profile
             }
         }
@@ -32,7 +32,7 @@ class EditProfileViewModel @Inject constructor(
     suspend fun updateUserProfile(profile: UserProfile) {
         _isLoading.value = true
         try {
-            userProfileRepository.saveUserProfile(profile)
+            userRepository.saveUserProfile(profile)
         } finally {
             _isLoading.value = false
         }

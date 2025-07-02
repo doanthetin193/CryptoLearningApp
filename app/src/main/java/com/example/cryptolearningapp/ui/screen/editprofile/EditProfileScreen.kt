@@ -22,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cryptolearningapp.data.model.Gender
 import com.example.cryptolearningapp.data.model.UserProfile
 import kotlinx.coroutines.launch
-import java.time.Year
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -40,7 +39,7 @@ fun EditProfileScreen(
     var errorMessage by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
 
-    val currentYear = Year.now().value
+    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     val years = (1900..currentYear).toList()
 
     // Update state when currentProfile changes

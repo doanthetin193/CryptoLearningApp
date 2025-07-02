@@ -2,7 +2,7 @@ package com.example.cryptolearningapp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cryptolearningapp.data.repository.UserProfileRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userProfileRepository: UserProfileRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _isOnboardingCompleted = MutableStateFlow(false)
@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
 
     private fun checkOnboardingStatus() {
         viewModelScope.launch {
-            userProfileRepository.userProfile.collect { profile ->
+            userRepository.userProfile.collect { profile ->
                 _isOnboardingCompleted.value = profile != null
             }
         }

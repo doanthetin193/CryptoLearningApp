@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.cryptolearningapp.data.model.User
 import com.example.cryptolearningapp.data.model.UserProgress
 import com.example.cryptolearningapp.data.model.UserProfile
 import com.example.cryptolearningapp.data.model.Gender

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolearningapp.data.model.Lesson
 import com.example.cryptolearningapp.data.model.QuizQuestion
-import com.example.cryptolearningapp.data.repository.CryptoRepository
+import com.example.cryptolearningapp.data.repository.UserRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,7 +38,7 @@ sealed class QuizState {
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val repository: CryptoRepository
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _quizState = MutableStateFlow<QuizState>(QuizState.Loading)
@@ -152,7 +152,7 @@ class QuizViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 currentLessonId?.let { lessonId ->
-                    val currentProgress = repository.getUserProgress("user1").first()
+                    val currentProgress = repository.userProgress.first()
                     currentProgress?.let { progress ->
                         val currentState = _quizState.value
                         if (currentState is QuizState.Success) {
@@ -165,7 +165,6 @@ class QuizViewModel @Inject constructor(
                             if (!isAlreadyCompleted) {
                                 // Nếu bài học chưa hoàn thành, cập nhật điểm và trạng thái
                                 repository.updateProgress(
-                                    userId = "user1",
                                     completedLessons = if (isLessonCompleted) {
                                         progress.completedLessons + lessonId
                                     } else {
@@ -177,7 +176,6 @@ class QuizViewModel @Inject constructor(
                                 // Nếu bài học đã hoàn thành, chỉ cập nhật điểm (có thể trừ điểm)
                                 val newTotalScore = progress.totalScore + finalScore
                                 repository.updateProgress(
-                                    userId = "user1",
                                     completedLessons = progress.completedLessons,
                                     totalScore = newTotalScore.coerceAtLeast(0) // Đảm bảo tổng điểm không âm
                                 )
