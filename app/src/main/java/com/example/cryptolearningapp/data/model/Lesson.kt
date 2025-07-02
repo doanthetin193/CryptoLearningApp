@@ -13,8 +13,3 @@ data class QuizQuestion(
     val options: List<String>,
     val answer: String
 )
-
-data class GlossaryTerm(
-    val term: String,
-    val definition: String
-) 
