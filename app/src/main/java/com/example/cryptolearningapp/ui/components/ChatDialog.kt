@@ -1,8 +1,6 @@
 package com.example.cryptolearningapp.ui.components
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,15 +17,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cryptolearningapp.data.model.ChatMessage
-import com.example.cryptolearningapp.data.model.ChatSession
-import com.example.cryptolearningapp.ui.viewmodel.ChatUiState
-import com.example.cryptolearningapp.ui.viewmodel.ChatViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

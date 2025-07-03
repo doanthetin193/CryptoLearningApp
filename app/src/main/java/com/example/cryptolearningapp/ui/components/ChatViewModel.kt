@@ -1,9 +1,7 @@
-package com.example.cryptolearningapp.ui.viewmodel
+package com.example.cryptolearningapp.ui.components
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cryptolearningapp.data.model.ChatMessage
-import com.example.cryptolearningapp.data.model.ChatSession
 import com.example.cryptolearningapp.data.repository.ChatRepository
 import com.example.cryptolearningapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -62,7 +60,8 @@ class ChatViewModel @Inject constructor(
      */
     fun sendMessage(message: String) {
         if (!_canUseChat.value) {
-            _uiState.value = ChatUiState.Error("Bạn cần đạt ít nhất 50 điểm để sử dụng tính năng này")
+            _uiState.value =
+                ChatUiState.Error("Bạn cần đạt ít nhất 50 điểm để sử dụng tính năng này")
             return
         }
         
