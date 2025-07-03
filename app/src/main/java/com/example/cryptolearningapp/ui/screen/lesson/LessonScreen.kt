@@ -26,7 +26,6 @@ fun LessonScreen(
     viewModel: LessonViewModel = hiltViewModel()
 ) {
     val lesson by viewModel.lesson.collectAsState()
-    var selectedKeyword by remember { mutableStateOf<String?>(null) }
     var showChatDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(lessonId) {
