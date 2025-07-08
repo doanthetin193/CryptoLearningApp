@@ -1,7 +1,6 @@
 package com.example.cryptolearningapp.di
 
 import com.example.cryptolearningapp.data.api.GeminiApi
-import com.example.cryptolearningapp.data.repository.ChatRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,13 +23,5 @@ object AppModule {
             .addConverterFactory(gsonConverterFactory) // Sử dụng lại GsonConverterFactory từ NetworkModule
             .build()
             .create(GeminiApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideChatRepository(
-        api: GeminiApi
-    ): ChatRepository {
-        return ChatRepository(api)
     }
 } 
