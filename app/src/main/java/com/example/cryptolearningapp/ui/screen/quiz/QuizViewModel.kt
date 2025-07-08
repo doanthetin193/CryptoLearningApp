@@ -189,13 +189,6 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    fun getCurrentQuestion(): QuizQuestion? {
-        val currentState = _quizState.value
-        return if (currentState is QuizState.Success) {
-            currentState.questions[currentState.currentQuestionIndex]
-        } else null
-    }
-
     fun getProgress(): Float {
         val currentState = _quizState.value
         return if (currentState is QuizState.Success) {

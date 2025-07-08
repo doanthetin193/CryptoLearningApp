@@ -41,16 +41,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun updateProgress(completedLessons: List<Int>, totalScore: Int) {
-        viewModelScope.launch {
-            try {
-                userRepository.updateProgress(completedLessons, totalScore)
-            } catch (e: Exception) {
-                _error.value = e.message
-            }
-        }
-    }
-
     fun resetProgress() {
         viewModelScope.launch {
             try {

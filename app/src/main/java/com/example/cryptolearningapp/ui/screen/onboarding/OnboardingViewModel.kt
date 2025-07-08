@@ -30,10 +30,4 @@ class OnboardingViewModel @Inject constructor(
             }
         }
     }
-
-    fun resetProgress() {
-        viewModelScope.launch {
-            userRepository.resetProgress()
-        }
-    }
 } 
