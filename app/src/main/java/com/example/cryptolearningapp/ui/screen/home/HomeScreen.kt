@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.rounded.DarkMode
@@ -61,6 +62,7 @@ fun HomeScreen(
     onLessonClick: (Int) -> Unit,
     onProfileClick: () -> Unit,
     onNewsClick: () -> Unit,
+    onChartClick: () -> Unit,
     isDarkMode: Boolean,
     onThemeUpdated: (Boolean) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
@@ -86,6 +88,14 @@ fun HomeScreen(
                             titleContentColor = MaterialTheme.colorScheme.onPrimary
                         ),
                         actions = {
+                            // Chart button
+                            IconButton(onClick = onChartClick) {
+                                Icon(
+                                    imageVector = Icons.Default.ShowChart,
+                                    contentDescription = "Charts",
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
                             // News button
                             IconButton(onClick = onNewsClick) {
                                 Icon(

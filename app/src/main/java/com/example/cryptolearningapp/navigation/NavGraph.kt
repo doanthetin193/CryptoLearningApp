@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.cryptolearningapp.ui.news.NewsScreen
+import com.example.cryptolearningapp.ui.screen.chart.ChartScreen
 import com.example.cryptolearningapp.ui.screen.home.HomeScreen
 import com.example.cryptolearningapp.ui.screen.lesson.LessonScreen
 import com.example.cryptolearningapp.ui.screen.onboarding.OnboardingScreen
@@ -24,6 +25,7 @@ sealed class Screen(val route: String) {
     object Profile : Screen("profile")
     object EditProfile : Screen("edit_profile")
     object News : Screen("news")
+    object Chart : Screen("chart")
 }
 
 @Composable
@@ -57,6 +59,9 @@ fun NavGraph(
                 },
                 onNewsClick = {
                     navController.navigate(Screen.News.route)
+                },
+                onChartClick = {
+                    navController.navigate(Screen.Chart.route)
                 },
                 isDarkMode = isDarkMode,
                 onThemeUpdated = onThemeUpdated
@@ -98,6 +103,10 @@ fun NavGraph(
 
         composable(Screen.News.route) {
             NewsScreen()
+        }
+
+        composable(Screen.Chart.route) {
+            ChartScreen()
         }
     }
 } 

@@ -49,4 +49,15 @@ object NetworkModule {
     fun provideCryptoNewsApi(retrofit: Retrofit): CryptoNewsApi {
         return retrofit.create(CryptoNewsApi::class.java)
     }
+    
+    @Provides
+    @Singleton
+    fun provideCoinGeckoRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): com.example.cryptolearningapp.data.api.CoinGeckoApi {
+        return Retrofit.Builder()
+            .baseUrl("https://api.coingecko.com/api/v3/")
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+            .create(com.example.cryptolearningapp.data.api.CoinGeckoApi::class.java)
+    }
 }
