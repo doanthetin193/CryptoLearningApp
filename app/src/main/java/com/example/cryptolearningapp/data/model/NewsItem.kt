@@ -15,5 +15,7 @@ data class NewsItem(
     @SerializedName("imgUrl") val imgUrl: String,
     @SerializedName("link") val link: String,
     @SerializedName("relatedCoins") val relatedCoins: List<String>?,
-    @SerializedName("isFeatured") val isFeatured: Boolean
+    @SerializedName("isFeatured") val isFeatured: Boolean,
+    val aiSummary: String? = null,
+    val isLoadingSummary: Boolean = false
 ) 

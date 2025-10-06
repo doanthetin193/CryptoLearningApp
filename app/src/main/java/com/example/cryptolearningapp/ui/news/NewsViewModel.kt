@@ -46,6 +46,41 @@ class NewsViewModel @Inject constructor(
             }
         }
     }
+    
+    fun generateAISummary(newsItem: NewsItem) {
+        viewModelScope.launch {
+            val currentState = _uiState.value
+            if (currentState is NewsUiState.Success) {
+                // Set loading state for this specific item
+                val updatedNews = currentState.news.map { item ->
+                    if (item.id == newsItem.id) {
+                        item.copy(isLoadingSummary = true)
+                    } else item
+                }
+                _uiState.value = NewsUiState.Success(updatedNews)
+                
+                // Generate AI summary
+                repository.generateAISummary(newsItem.title)
+                    .onSuccess { summary ->
+                        val finalNews = currentState.news.map { item ->
+                            if (item.id == newsItem.id) {
+                                item.copy(aiSummary = summary, isLoadingSummary = false)
+                            } else item
+                        }
+                        _uiState.value = NewsUiState.Success(finalNews)
+                    }
+                    .onFailure { error ->
+                        val finalNews = currentState.news.map { item ->
+                            if (item.id == newsItem.id) {
+                                item.copy(isLoadingSummary = false)
+                            } else item
+                        }
+                        _uiState.value = NewsUiState.Success(finalNews)
+                        // Could show error snackbar here
+                    }
+            }
+        }
+    }
 }
 
 sealed class NewsUiState {
